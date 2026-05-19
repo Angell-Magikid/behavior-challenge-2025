@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stanford BEHAVIOR 挑战赛分析 · MAGIKID</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --blue-dark: #0a0e1a;
+      --blue:      #1d3557;
+      --accent:    #457b9d;
+      --gold:      #f4a01c;
+      --red:       #e63946;
+      --white:     #ffffff;
+      --gray50:    #f8fafc;
+      --gray100:   #f1f5f9;
+      --gray200:   #e2e8f0;
+      --gray500:   #64748b;
+      --gray700:   #334155;
+      --gray900:   #0f172a;
+      --radius:    12px;
+      --radius-lg: 20px;
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.07);
+      --shadow-md: 0 6px 24px rgba(0,0,0,0.10);
+      --shadow-lg: 0 16px 48px rgba(0,0,0,0.14);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--gray50);
+      color: var(--gray900);
+      font-family: 'PingFang SC','Noto Sans SC',-apple-system,'Microsoft YaHei',sans-serif;
+      line-height: 1.75;
+      font-size: 15px;
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      background: linear-gradient(135deg, #050810 0%, #1d3557 60%, #0d2136 100%);
+      padding: 80px 24px 64px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content:'';
+      position:absolute; inset:0;
+      background: radial-gradient(ellipse 90% 55% at 50% -5%, rgba(69,123,157,.4) 0%, transparent 70%);
+      pointer-events:none;
+    }
+    .hero-eyebrow {
+      display:inline-flex; align-items:center; gap:8px;
+      background: rgba(244,160,28,.13);
+      border: 1px solid rgba(244,160,28,.45);
+      color: var(--gold);
+      padding: 6px 20px; border-radius:999px;
+      font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase;
+      margin-bottom:28px;
+    }
+    .hero h1 {
+      font-size: clamp(26px,5vw,54px);
+      font-weight:800; color:#fff; line-height:1.15;
+      margin-bottom:20px; letter-spacing:-0.5px;
+    }
+    .hero h1 em { color:var(--gold); font-style:normal; }
+    .hero h1 strong { color:var(--red); }
+    .hero-sub {
+      font-size:16px; color:rgba(255,255,255,.62);
+      max-width:660px; margin:0 auto 48px;
+    }
+
+    /* ─── MAGIKID 成就 CARD ─── */
+    .achievement-wrap {
+      max-width:900px; margin:0 auto;
+      background: linear-gradient(120deg,rgba(244,160,28,.10) 0%,rgba(29,53,87,.5) 100%);
+      border:1px solid rgba(244,160,28,.35);
+      border-radius:var(--radius-lg);
+      padding:36px 44px;
+      display:grid; grid-template-columns:auto 1fr; gap:28px; align-items:center;
+    }
+    .achievement-badge {
+      width:90px; height:90px;
+      background: linear-gradient(135deg,#f4a01c,#e63946);
+      border-radius:50%;
+      display:flex; flex-direction:column; align-items:center; justify-content:center;
+      font-size:13px; font-weight:900; color:#fff; line-height:1.1; text-align:center;
+      box-shadow: 0 0 32px rgba(244,160,28,.55);
+      flex-shrink:0;
+    }
+    .achievement-badge span { font-size:28px; font-weight:900; }
+    .achievement-text h2 {
+      font-size:20px; font-weight:800; color:#fff; margin-bottom:10px;
+    }
+    .achievement-text p { color:rgba(255,255,255,.72); font-size:14px; line-height:1.8; }
+    .achievement-text p strong { color:var(--gold); }
+
+    /* ─── LAYOUT ─── */
+    .container { max-width:1080px; margin:0 auto; padding:0 24px; }
+    section { padding:64px 0; }
+    section + section { border-top:1px solid var(--gray200); }
+
+    .section-tag {
+      display:inline-block;
+      background: linear-gradient(90deg,var(--blue),var(--accent));
+      color:#fff; font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase;
+      padding:5px 16px; border-radius:999px; margin-bottom:16px;
+    }
+    .section-title {
+      font-size:clamp(22px,3.5vw,36px); font-weight:800;
+      color:var(--gray900); line-height:1.2; margin-bottom:14px;
+    }
+    .section-title em { color:var(--accent); font-style:normal; }
+    .section-desc { color:var(--gray500); font-size:15px; max-width:680px; margin-bottom:40px; }
+    .divider { width:48px; height:4px; background:linear-gradient(90deg,var(--blue),var(--accent)); border-radius:4px; margin:14px 0 36px; }
+
+    /* ─── BACKGROUND CARDS ─── */
+    .bg-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:20px; }
+    .bg-card {
+      background:var(--white); border:1px solid var(--gray200);
+      border-radius:var(--radius); padding:28px 26px;
+      box-shadow:var(--shadow-sm);
+      transition:transform .25s,box-shadow .25s;
+    }
+    .bg-card:hover { transform:translateY(-4px); box-shadow:var(--shadow-md); }
+    .bg-card-icon { font-size:32px; margin-bottom:14px; }
+    .bg-card h3 { font-size:16px; font-weight:700; color:var(--gray900); margin-bottom:8px; }
+    .bg-card p { font-size:13.5px; color:var(--gray500); line-height:1.75; }
+    .bg-card .stat { font-size:32px; font-weight:800; color:var(--blue); margin-bottom:4px; line-height:1; }
+    .bg-card .stat-label { font-size:13px; color:var(--gray500); }
+
+    /* ─── STAT ROW ─── */
+    .stat-row {
+      display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:48px;
+    }
+    .stat-item {
+      background:var(--white); border:1px solid var(--gray200);
+      border-radius:var(--radius); padding:24px 20px; text-align:center;
+      box-shadow:var(--shadow-sm);
+    }
+    .stat-item .num { font-size:36px; font-weight:800; color:var(--blue); line-height:1; }
+    .stat-item .unit { font-size:16px; font-weight:700; color:var(--accent); }
+    .stat-item .label { font-size:12px; color:var(--gray500); margin-top:6px; }
+
+    /* ─── TEAM SECTION ─── */
+    .team-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:18px; }
+    .team-card {
+      background:var(--white); border:1px solid var(--gray200);
+      border-radius:var(--radius); padding:24px 20px;
+      box-shadow:var(--shadow-sm);
+      display:flex; flex-direction:column; gap:6px;
+    }
+    .team-card .role {
+      font-size:10px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase;
+      color:var(--accent); margin-bottom:4px;
+    }
+    .team-card .name { font-size:16px; font-weight:700; color:var(--gray900); }
+    .team-card .affil { font-size:12.5px; color:var(--gray500); }
+
+    /* ─── LEADERBOARD ─── */
+    .lb-wrap { overflow-x:auto; border-radius:var(--radius); box-shadow:var(--shadow-md); }
+    table.lb {
+      width:100%; border-collapse:collapse;
+      background:var(--white);
+    }
+    table.lb thead tr {
+      background:var(--blue);
+      color:#fff; font-size:12px; font-weight:700; letter-spacing:1px; text-transform:uppercase;
+    }
+    table.lb thead th { padding:14px 18px; text-align:left; white-space:nowrap; }
+    table.lb tbody tr { border-bottom:1px solid var(--gray100); transition:background .15s; }
+    table.lb tbody tr:hover { background:var(--gray50); }
+    table.lb tbody td { padding:13px 18px; font-size:14px; color:var(--gray700); vertical-align:middle; }
+    .rank-num {
+      width:32px; height:32px; border-radius:50%;
+      display:inline-flex; align-items:center; justify-content:center;
+      font-size:13px; font-weight:700; background:var(--gray100); color:var(--gray700);
+    }
+    .rank-1 .rank-num { background:linear-gradient(135deg,#f4a01c,#e5871a); color:#fff; box-shadow:0 3px 12px rgba(244,160,28,.45); }
+    .rank-2 .rank-num { background:linear-gradient(135deg,#c0c8d4,#9aa5b4); color:#fff; }
+    .rank-3 .rank-num { background:linear-gradient(135deg,#c87533,#a0622a); color:#fff; }
+    .rank-magikid td { background:linear-gradient(90deg,rgba(230,57,70,.06),rgba(244,160,28,.05)); }
+    .rank-magikid .rank-num { background:linear-gradient(135deg,var(--red),#c0392b); color:#fff; box-shadow:0 3px 12px rgba(230,57,70,.45); }
+    .magikid-badge {
+      display:inline-flex; align-items:center; gap:5px;
+      background:rgba(230,57,70,.10); border:1px solid rgba(230,57,70,.3);
+      color:var(--red); font-size:11px; font-weight:700; padding:3px 10px; border-radius:999px;
+      margin-left:8px;
+    }
+    .track-badge {
+      font-size:11px; padding:3px 10px; border-radius:999px;
+      font-weight:600; white-space:nowrap;
+    }
+    .track-std { background:rgba(69,123,157,.12); color:var(--accent); }
+    .track-priv { background:rgba(244,160,28,.12); color:#c68a00; }
+    .score-bar-wrap { display:flex; align-items:center; gap:10px; }
+    .score-bar-bg { flex:1; height:6px; background:var(--gray100); border-radius:4px; overflow:hidden; max-width:120px; }
+    .score-bar { height:100%; border-radius:4px; background:linear-gradient(90deg,var(--blue),var(--accent)); }
+    .score-val { font-size:13px; font-weight:700; color:var(--gray700); white-space:nowrap; }
+
+    /* ─── MODE / TRACKS ─── */
+    .tracks-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+    .track-card {
+      border-radius:var(--radius); padding:28px;
+      border:1px solid var(--gray200); box-shadow:var(--shadow-sm);
+    }
+    .track-card.std { background:linear-gradient(135deg,#f0f7ff,#e8f2ff); border-color:rgba(69,123,157,.25); }
+    .track-card.priv { background:linear-gradient(135deg,#fffbf0,#fff5dc); border-color:rgba(244,160,28,.3); }
+    .track-card h3 { font-size:17px; font-weight:800; margin-bottom:12px; }
+    .track-card.std h3 { color:var(--blue); }
+    .track-card.priv h3 { color:#8a6200; }
+    .track-card ul { list-style:none; display:flex; flex-direction:column; gap:8px; }
+    .track-card ul li { font-size:13.5px; color:var(--gray700); padding-left:20px; position:relative; }
+    .track-card ul li::before { content:'✓'; position:absolute; left:0; font-weight:700; }
+    .track-card.std ul li::before { color:var(--accent); }
+    .track-card.priv ul li::before { color:var(--gold); }
+
+    /* ─── PRIZES ─── */
+    .prize-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+    .prize-card {
+      border-radius:var(--radius); padding:28px 24px; text-align:center;
+      border:1px solid var(--gray200); box-shadow:var(--shadow-sm);
+      background:var(--white); position:relative;
+    }
+    .prize-card.gold-card { border-color:rgba(244,160,28,.4); background:linear-gradient(135deg,#fffbf0,#fff8e7); }
+    .prize-card.silver-card { border-color:rgba(192,200,212,.5); background:linear-gradient(135deg,#f8f9fa,#f0f3f7); }
+    .prize-card.bronze-card { border-color:rgba(200,117,51,.35); background:linear-gradient(135deg,#fdf6ef,#faf0e6); }
+    .prize-medal { font-size:40px; margin-bottom:10px; }
+    .prize-card h3 { font-size:15px; font-weight:700; margin-bottom:14px; color:var(--gray900); }
+    .prize-amount { font-size:28px; font-weight:800; color:var(--blue); margin-bottom:6px; }
+    .prize-extra { font-size:13px; color:var(--gray500); }
+
+    /* ─── SCREENSHOT ─── */
+    .screenshot-frame {
+      border-radius:var(--radius-lg); overflow:hidden;
+      box-shadow:var(--shadow-lg); border:1px solid var(--gray200);
+      margin:0 auto; max-width:880px;
+    }
+    .screenshot-frame img { width:100%; display:block; }
+    .screenshot-caption {
+      text-align:center; font-size:12.5px; color:var(--gray500);
+      margin-top:14px;
+    }
+    .screenshot-caption a { color:var(--accent); text-decoration:none; }
+
+    /* ─── MAGIKID HIGHLIGHT ─── */
+    .magikid-highlight {
+      background:linear-gradient(135deg,#1d3557 0%,#0a0e1a 100%);
+      border-radius:var(--radius-lg); padding:52px 48px;
+      display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center;
+    }
+    .mh-left h2 { font-size:28px; font-weight:800; color:#fff; line-height:1.2; margin-bottom:16px; }
+    .mh-left h2 em { color:var(--gold); font-style:normal; }
+    .mh-left p { color:rgba(255,255,255,.65); font-size:14.5px; margin-bottom:24px; }
+    .mh-stats { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+    .mh-stat {
+      background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12);
+      border-radius:var(--radius); padding:16px 18px;
+    }
+    .mh-stat .n { font-size:26px; font-weight:800; color:var(--gold); line-height:1; }
+    .mh-stat .l { font-size:12px; color:rgba(255,255,255,.55); margin-top:4px; }
+    .mh-right {
+      background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.12);
+      border-radius:var(--radius-lg); padding:28px; text-align:center;
+    }
+    .mh-right .big-rank { font-size:80px; font-weight:900; color:var(--gold); line-height:1; }
+    .mh-right .rank-label { color:rgba(255,255,255,.6); font-size:14px; margin-bottom:18px; }
+    .mh-right .tag {
+      display:inline-block;
+      background:rgba(230,57,70,.18); border:1px solid rgba(230,57,70,.4);
+      color:#ff7b82; font-size:12px; font-weight:700; padding:6px 18px;
+      border-radius:999px; margin-bottom:8px;
+    }
+    .mh-right .note { font-size:12px; color:rgba(255,255,255,.4); }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background:var(--blue-dark); color:rgba(255,255,255,.45);
+      text-align:center; padding:32px 24px; font-size:13px;
+    }
+    footer strong { color:rgba(255,255,255,.75); }
+
+    /* ─── RESPONSIVE ─── */
+    @media(max-width:768px){
+      .achievement-wrap { grid-template-columns:1fr; text-align:center; padding:28px 22px; }
+      .achievement-badge { margin:0 auto; }
+      .stat-row { grid-template-columns:repeat(2,1fr); }
+      .tracks-grid { grid-template-columns:1fr; }
+      .prize-grid { grid-template-columns:1fr; }
+      .magikid-highlight { grid-template-columns:1fr; padding:36px 24px; }
+      .mh-right .big-rank { font-size:64px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════ HERO ═══════════════════════════ -->
+<div class="hero">
+  <div class="hero-eyebrow">🏆 深度分析报告</div>
+  <h1>Stanford <em>BEHAVIOR</em><br>人形机器人挑战赛</h1>
+  <p class="hero-sub">全球首个以真实人类需求为核心的具身智能基准 · 2025 年 NeurIPS 官方赛道</p>
+
+  <!-- MAGIKID 成就 -->
+  <div class="achievement-wrap">
+    <div class="achievement-badge">
+      <span>TOP</span>18
+    </div>
+    <div class="achievement-text">
+      <h2>🎉 MAGIKID 全球第 18 名</h2>
+      <p>
+        在 2025 BEHAVIOR 挑战赛中，<strong>MAGIKID 是排行榜上唯一的 K-12 教育机构</strong>，<br>
+        与 NVIDIA、华为等科技巨头及斯坦福、CMU 等顶尖高校实验室同台竞技。
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════ 比赛背景 ═══════════════════════════ -->
+<section>
+  <div class="container">
+    <div class="section-tag">比赛背景</div>
+    <h2 class="section-title">BEHAVIOR-1K —— 具身智能的<em>现实考场</em></h2>
+    <div class="divider"></div>
+    <p class="section-desc">
+      由斯坦福大学发起，基于大规模社会调查——询问真实用户「希望机器人帮你做什么」，
+      从答案中提炼出 1,000 项家庭活动，构建出迄今最贴近现实人类需求的机器人基准测试。
+    </p>
+
+    <div class="stat-row">
+      <div class="stat-item">
+        <div class="num">1,000</div>
+        <div class="label">家庭活动任务</div>
+      </div>
+      <div class="stat-item">
+        <div class="num">50</div>
+        <div class="label">完整可交互场景</div>
+      </div>
+      <div class="stat-item">
+        <div class="num">10,000<span class="unit">+</span></div>
+        <div class="label">场景中的物体</div>
+      </div>
+      <div class="stat-item">
+        <div class="num">1,200<span class="unit">h+</span></div>
+        <div class="label">遥操作专家演示数据</div>
+      </div>
+    </div>
+
+    <div class="bg-grid">
+      <div class="bg-card">
+        <div class="bg-card-icon">🤖</div>
+        <h3>以人类需求为驱动</h3>
+        <p>基于广泛的社会调查收集"你希望机器人帮你做什么"，确保任务与真实生活高度贴合，而非实验室场景。</p>
+      </div>
+      <div class="bg-card">
+        <div class="bg-card-icon">🔬</div>
+        <h3>OmniGibson 仿真平台</h3>
+        <p>基于 NVIDIA Isaac Sim，支持流体、柔性物体、透明物体、热效应等高真实度物理模拟，远超传统仿真器。</p>
+      </div>
+      <div class="bg-card">
+        <div class="bg-card-icon">🏠</div>
+        <h3>长周期移动操作</h3>
+        <p>任务覆盖整理、烹饪、清洁、安装等复杂连续步骤，测试机器人在家庭规模场景中的高级推理与操控能力。</p>
+      </div>
+      <div class="bg-card">
+        <div class="bg-card-icon">🌍</div>
+        <h3>NeurIPS 官方赛道</h3>
+        <p>2025 年挑战赛于 NeurIPS（全球顶级 AI 学术会议）发布，吸引来自 4 个国家、学术与工业界共 18 支团队提交。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ 核心团队 ═══════════════════════════ -->
+<section style="background:var(--gray100);">
+  <div class="container">
+    <div class="section-tag">核心团队</div>
+    <h2 class="section-title">斯坦福大学 <em>BEHAVIOR</em> 团队</h2>
+    <div class="divider"></div>
+    <p class="section-desc">由斯坦福大学 AI Lab 主导，汇聚计算机视觉、机器人操控、具身智能等领域顶尖研究者。</p>
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="role">核心负责人</div>
+        <div class="name">李飞飞（Fei-Fei Li）</div>
+        <div class="affil">Stanford University · 斯坦福 HAI 联合院长</div>
+      </div>
+      <div class="team-card">
+        <div class="role">核心负责人</div>
+        <div class="name">吴佳俊（Jiajun Wu）</div>
+        <div class="affil">Stanford University · 计算机系助理教授</div>
+      </div>
+      <div class="team-card">
+        <div class="role">技术团队</div>
+        <div class="name">Josiah Wong</div>
+        <div class="affil">Stanford BEHAVIOR 项目 · 核心开发</div>
+      </div>
+      <div class="team-card">
+        <div class="role">技术团队</div>
+        <div class="name">Cem Gokmen</div>
+        <div class="affil">Stanford BEHAVIOR 项目 · 核心开发</div>
+      </div>
+      <div class="team-card">
+        <div class="role">技术团队</div>
+        <div class="name">Hang Yin</div>
+        <div class="affil">Stanford BEHAVIOR 项目 · 核心开发</div>
+      </div>
+      <div class="team-card">
+        <div class="role">支持研究者</div>
+        <div class="name">Roberto Martín-Martín</div>
+        <div class="affil">UT Austin · 具身智能研究</div>
+      </div>
+      <div class="team-card">
+        <div class="role">支持研究者</div>
+        <div class="name">Silvio Savarese</div>
+        <div class="affil">Stanford · 计算机视觉</div>
+      </div>
+      <div class="team-card" style="border:1px dashed var(--gray200);background:var(--gray50);">
+        <div class="role">赞助支持</div>
+        <div class="name">NVIDIA Research</div>
+        <div class="affil">OmniGibson 仿真平台 · Isaac Sim 支持</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ 比赛模式 ═══════════════════════════ -->
+<section>
+  <div class="container">
+    <div class="section-tag">比赛模式</div>
+    <h2 class="section-title">两条赛道 · <em>评分体系</em></h2>
+    <div class="divider"></div>
+    <p class="section-desc">
+      参赛队伍提交机器人策略代码，在 OmniGibson 仿真器中执行 50 项家庭任务，
+      以 Q-Score 为主排名指标，允许部分完成得分。
+    </p>
+
+    <div class="tracks-grid" style="margin-bottom:40px;">
+      <div class="track-card std">
+        <h3>🔵 Standard Track · 标准赛道</h3>
+        <ul>
+          <li>仅使用机载传感器观测（RGB + 深度）</li>
+          <li>实例分割 + 本体感知数据</li>
+          <li>不可访问模拟器内部状态</li>
+          <li>最贴近真实机器人部署条件</li>
+          <li>MAGIKID 参赛赛道</li>
+        </ul>
+      </div>
+      <div class="track-card priv">
+        <h3>🟡 Privileged Track · 特权赛道</h3>
+        <ul>
+          <li>可访问模拟器任意内部信息</li>
+          <li>包括物体精确位姿、场景点云等</li>
+          <li>适合算法研究与上界探索</li>
+          <li>独立排名，不与标准赛道竞争</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 评分说明 -->
+    <div style="background:var(--gray100);border-radius:var(--radius-lg);padding:32px 36px;margin-bottom:32px;">
+      <h3 style="font-size:17px;font-weight:800;color:var(--gray900);margin-bottom:16px;">📊 Q-Score 评分机制</h3>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+        <div>
+          <p style="font-size:14px;color:var(--gray700);line-height:1.8;">
+            Q-Score 通过计算已完成的<strong>子目标比例</strong>来评估策略表现，并选择最佳匹配的目标条款进行评分。
+            即使任务未完全完成，只要取得有意义的阶段进展，即可获得部分分数，比二元成功率更平滑可靠。
+          </p>
+        </div>
+        <div>
+          <p style="font-size:14px;color:var(--gray700);line-height:1.8;">
+            <strong>辅助指标（效率维度）：</strong><br>
+            · 模拟时间消耗<br>
+            · 导航总距离<br>
+            · 手部位移量<br>
+            · 50 项任务平均任务成功率
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 关键时间线 -->
+    <h3 style="font-size:16px;font-weight:700;color:var(--gray900);margin-bottom:20px;">⏱ 2025 赛季关键时间线</h3>
+    <div style="display:flex;flex-wrap:wrap;gap:12px;">
+      <div style="background:var(--white);border:1px solid var(--gray200);border-radius:var(--radius);padding:14px 20px;min-width:180px;">
+        <div style="font-size:12px;color:var(--accent);font-weight:700;margin-bottom:4px;">挑战启动</div>
+        <div style="font-size:15px;font-weight:700;color:var(--gray900);">2025 年 9 月 2 日</div>
+      </div>
+      <div style="background:var(--white);border:1px solid var(--gray200);border-radius:var(--radius);padding:14px 20px;min-width:180px;">
+        <div style="font-size:12px;color:var(--accent);font-weight:700;margin-bottom:4px;">提交截止</div>
+        <div style="font-size:15px;font-weight:700;color:var(--gray900);">2025 年 11 月 16 日</div>
+      </div>
+      <div style="background:var(--white);border:1px solid var(--gray200);border-radius:var(--radius);padding:14px 20px;min-width:180px;">
+        <div style="font-size:12px;color:var(--gold);font-weight:700;margin-bottom:4px;">排行榜公开</div>
+        <div style="font-size:15px;font-weight:700;color:var(--gray900);">2025 年 12 月 1 日</div>
+      </div>
+      <div style="background:var(--white);border:1px solid var(--gray200);border-radius:var(--radius);padding:14px 20px;min-width:180px;">
+        <div style="font-size:12px;color:var(--red);font-weight:700;margin-bottom:4px;">获奖颁布 · NeurIPS</div>
+        <div style="font-size:15px;font-weight:700;color:var(--gray900);">2025 年 12 月 6–7 日</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ 排行榜 ═══════════════════════════ -->
+<section style="background:var(--gray100);">
+  <div class="container">
+    <div class="section-tag">获奖情况</div>
+    <h2 class="section-title">2025 全球<em>排行榜</em>（Provisional）</h2>
+    <div class="divider"></div>
+    <p class="section-desc">
+      来自 4 个国家共 18 支团队提交参赛，参与者涵盖科技巨头、顶尖高校实验室与独立研究团队。
+    </p>
+
+    <div class="lb-wrap">
+      <table class="lb">
+        <thead>
+          <tr>
+            <th>排名</th>
+            <th>团队 / 队伍</th>
+            <th>机构</th>
+            <th>赛道</th>
+            <th>Q-Score</th>
+            <th>提交日期</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="rank-1">
+            <td><span class="rank-num">1</span></td>
+            <td><strong>Robot Learning Collective</strong></td>
+            <td>独立团队</td>
+            <td><span class="track-badge track-std">Standard</span></td>
+            <td>
+              <div class="score-bar-wrap">
+                <div class="score-bar-bg"><div class="score-bar" style="width:100%;"></div></div>
+                <span class="score-val">0.2599</span>
+              </div>
+            </td>
+            <td>2025-11-16</td>
+          </tr>
+          <tr class="rank-2">
+            <td><span class="rank-num">2</span></td>
+            <td><strong>Comet</strong></td>
+            <td>NVIDIA Research</td>
+            <td><span class="track-badge track-std">Standard</span></td>
+            <td>
+              <div class="score-bar-wrap">
+                <div class="score-bar-bg"><div class="score-bar" style="width:97%;"></div></div>
+                <span class="score-val">0.2514</span>
+              </div>
+            </td>
+            <td>2025-11-16</td>
+          </tr>
+          <tr class="rank-3">
+            <td><span class="rank-num">3</span></td>
+            <td><strong>SimpleAI Robot</strong></td>
+            <td>北京简单人工智能科技</td>
+            <td><span class="track-badge track-std">Standard</span></td>
+            <td>
+              <div class="score-bar-wrap">
+                <div class="score-bar-bg"><div class="score-bar" style="width:61%;"></div></div>
+                <span class="score-val">0.1591</span>
+              </div>
+            </td>
+            <td>2025-11-16</td>
+          </tr>
+          <tr>
+            <td><span class="rank-num">4</span></td>
+            <td><strong>The North Star</strong></td>
+            <td>华为 CRI EAI 团队</td>
+            <td><span class="track-badge track-std">Standard</span></td>
+            <td>
+              <div class="score-bar-wrap">
+                <div class="score-bar-bg"><div class="score-bar" style="width:46%;"></div></div>
+                <span class="score-val">0.1204</span>
+              </div>
+            </td>
+            <td>2025-11-15</td>
+          </tr>
+          <tr>
+            <td><span class="rank-num">5</span></td>
+            <td><strong>Embodied Intelligence</strong></td>
+            <td>独立团队</td>
+            <td><span class="track-badge track-priv">Privileged</span></td>
+            <td>
+              <div class="score-bar-wrap">
+                <div class="score-bar-bg"><div class="score-bar" style="width:36%;"></div></div>
+                <span class="score-val">0.0947</span>
+              </div>
+            </td>
+            <td>2025-11-16</td>
+          </tr>
+          <tr>
+            <td><span class="rank-num" style="font-size:11px;">6–17</span></td>
+            <td colspan="4" style="color:var(--gray400);font-style:italic;font-size:13px;">其他参赛团队（含斯坦福、CMU 等高校实验室及多家独立团队）</td>
+            <td>—</td>
+          </tr>
+          <!-- MAGIKID -->
+          <tr class="rank-magikid">
+            <td><span class="rank-num">18</span></td>
+            <td>
+              <strong>Magikid</strong>
+              <span class="magikid-badge">🏅 唯一 K-12</span>
+            </td>
+            <td>MAGIKID（深圳）</td>
+            <td><span class="track-badge track-std">Standard</span></td>
+            <td>
+              <div class="score-bar-wrap">
+                <div class="score-bar-bg"><div class="score-bar" style="width:1%;background:var(--red);"></div></div>
+                <span class="score-val" style="color:var(--red);">0.0000</span>
+              </div>
+            </td>
+            <td>2025-11-16</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:12.5px;color:var(--gray400);margin-top:14px;">
+      数据来源：<a href="https://behavior.stanford.edu/challenge/leaderboard.html" target="_blank" style="color:var(--accent);">behavior.stanford.edu/challenge/leaderboard.html</a> · Provisional 2025 Challenge Leaderboard
+    </p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ MAGIKID 成就详解 ═══════════════════════════ -->
+<section>
+  <div class="container">
+    <div class="magikid-highlight">
+      <div class="mh-left">
+        <h2>MAGIKID ·<br><em>排行榜上唯一的 K-12 教育机构</em></h2>
+        <p>
+          在全球首个以真实人类需求为核心的具身智能挑战赛中，MAGIKID 学生团队与 NVIDIA、华为、斯坦福等机构的专业研究团队同场竞技，
+          成功完成提交并进入全球榜单，成为榜单上唯一代表 K-12 教育的机构。
+        </p>
+        <div class="mh-stats">
+          <div class="mh-stat">
+            <div class="n">18</div>
+            <div class="l">全球排名</div>
+          </div>
+          <div class="mh-stat">
+            <div class="n">18</div>
+            <div class="l">参赛队伍总数</div>
+          </div>
+          <div class="mh-stat">
+            <div class="n">4</div>
+            <div class="l">参赛国家</div>
+          </div>
+          <div class="mh-stat">
+            <div class="n">1</div>
+            <div class="l">榜单上唯一 K-12</div>
+          </div>
+        </div>
+      </div>
+      <div class="mh-right">
+        <div class="big-rank">TOP<br>18</div>
+        <div class="rank-label">2025 BEHAVIOR Challenge · 全球排名</div>
+        <span class="tag">唯一 K-12 教育机构</span>
+        <div class="note">与 NVIDIA · 华为 · Stanford · CMU 同台</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ 奖项设置 ═══════════════════════════ -->
+<section style="background:var(--gray100);">
+  <div class="container">
+    <div class="section-tag">奖项设置</div>
+    <h2 class="section-title">每个赛道 · <em>Top 3 奖项</em></h2>
+    <div class="divider"></div>
+    <div class="prize-grid">
+      <div class="prize-card gold-card">
+        <div class="prize-medal">🥇</div>
+        <h3>第一名</h3>
+        <div class="prize-amount">$1,000</div>
+        <div class="prize-extra">+ GeForce RTX 5080 显卡</div>
+      </div>
+      <div class="prize-card silver-card">
+        <div class="prize-medal">🥈</div>
+        <h3>第二名</h3>
+        <div class="prize-amount">$500</div>
+        <div class="prize-extra">+ Jetson Orin Nano Super 或 $1,000 Brev 积分</div>
+      </div>
+      <div class="prize-card bronze-card">
+        <div class="prize-medal">🥉</div>
+        <h3>第三名</h3>
+        <div class="prize-amount">$300</div>
+        <div class="prize-extra">+ $500 Brev 积分</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ FOOTER ═══════════════════════════ -->
+<footer>
+  <strong>MAGIKID AI &amp; Robotics</strong> · 数据来源：Stanford BEHAVIOR 官方排行榜 &amp; 挑战赛页面 ·
+  <a href="https://behavior.stanford.edu" target="_blank" style="color:rgba(255,255,255,.5);">behavior.stanford.edu</a>
+</footer>
+
+</body>
+</html>
