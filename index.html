@@ -283,6 +283,15 @@
     }
     footer strong { color:rgba(255,255,255,.75); }
 
+    /* ─── HERO IMAGE ─── */
+    .hero-img {
+      max-width:920px; margin:36px auto 0;
+      border-radius:var(--radius-lg); overflow:hidden;
+      box-shadow:0 20px 60px rgba(0,0,0,.35), 0 0 0 1px rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.12);
+    }
+    .hero-img img { width:100%; display:block; }
+
     /* ─── RESPONSIVE ─── */
     @media(max-width:768px){
       .achievement-wrap { grid-template-columns:1fr; text-align:center; padding:28px 22px; }
@@ -292,6 +301,7 @@
       .prize-grid { grid-template-columns:1fr; }
       .magikid-highlight { grid-template-columns:1fr; padding:36px 24px; }
       .mh-right .big-rank { font-size:64px; }
+      .hero-img { margin-top:24px; border-radius:var(--radius); }
     }
   </style>
 </head>
@@ -302,6 +312,11 @@
   <div class="hero-eyebrow">🏆 深度分析报告</div>
   <h1>Stanford <em>BEHAVIOR</em><br>人形机器人挑战赛</h1>
   <p class="hero-sub">全球首个以真实人类需求为核心的具身智能基准 · 2025 年 NeurIPS 官方赛道</p>
+
+  <!-- BEHAVIOR 官方 Hero 大图 -->
+  <div class="hero-img">
+    <img src="behavior-hero.png" alt="BEHAVIOR - 人形机器人在厨房场景中执行任务" />
+  </div>
 
   <!-- MAGIKID 成就 -->
   <div class="achievement-wrap">
