@@ -164,22 +164,26 @@
     }
     table.lb thead tr {
       background:var(--blue);
-      color:#fff; font-size:12px; font-weight:700; letter-spacing:1px; text-transform:uppercase;
+      color:#fff; font-size:13px; font-weight:700; letter-spacing:1px; text-transform:uppercase;
     }
-    table.lb thead th { padding:14px 18px; text-align:left; white-space:nowrap; }
-    table.lb tbody tr { border-bottom:1px solid var(--gray100); transition:background .15s; }
-    table.lb tbody tr:hover { background:var(--gray50); }
-    table.lb tbody td { padding:13px 18px; font-size:14px; color:var(--gray700); vertical-align:middle; }
+    table.lb thead th { padding:14px 20px; text-align:left; white-space:nowrap; }
+    /* 全量表格样式 */
+    table.lb.lb-full tbody tr { border-bottom:1px solid #E8ECF0; transition:background .15s; }
+    table.lb.lb-full tbody tr:hover { background:#F0F4FF !important; }
+    table.lb.lb-full tbody td { padding:12px 20px; font-size:14px; color:var(--gray700); vertical-align:middle; }
     .rank-num {
       width:32px; height:32px; border-radius:50%;
       display:inline-flex; align-items:center; justify-content:center;
       font-size:13px; font-weight:700; background:var(--gray100); color:var(--gray700);
     }
-    .rank-1 .rank-num { background:linear-gradient(135deg,#f4a01c,#e5871a); color:#fff; box-shadow:0 3px 12px rgba(244,160,28,.45); }
-    .rank-2 .rank-num { background:linear-gradient(135deg,#c0c8d4,#9aa5b4); color:#fff; }
-    .rank-3 .rank-num { background:linear-gradient(135deg,#c87533,#a0622a); color:#fff; }
-    .rank-magikid td { background:linear-gradient(90deg,rgba(230,57,70,.06),rgba(244,160,28,.05)); }
-    .rank-magikid .rank-num { background:linear-gradient(135deg,var(--red),#c0392b); color:#fff; box-shadow:0 3px 12px rgba(230,57,70,.45); }
+    .rank-1 .rank-num, .rank-1 td:first-child > * { background:linear-gradient(135deg,#f4a01c,#e5871a); color:#fff; box-shadow:0 3px 12px rgba(244,160,28,.45); }
+    .rank-2 .rank-num, .rank-2 td:first-child > * { background:linear-gradient(135deg,#c0c8d4,#9aa5b4); color:#fff; box-shadow:0 3px 12px rgba(156,165,180,.35); }
+    .rank-3 .rank-num, .rank-3 td:first-child > * { background:linear-gradient(135deg,#c87533,#a0622a); color:#fff; box-shadow:0 3px 12px rgba(200,117,51,.35); }
+    .rank-magikid {
+      background:linear-gradient(90deg,rgba(230,57,70,.08),rgba(244,160,28,.06)) !important;
+      border-top:2.5px solid var(--red) !important;
+    }
+    .rank-magikid:hover { background:linear-gradient(90deg,rgba(230,57,70,.12),rgba(244,160,28,.08)) !important; }
     .magikid-badge {
       display:inline-flex; align-items:center; gap:5px;
       background:rgba(230,57,70,.10); border:1px solid rgba(230,57,70,.3);
@@ -510,104 +514,144 @@
     </p>
 
     <div class="lb-wrap">
-      <table class="lb">
+      <table class="lb lb-full">
         <thead>
           <tr>
-            <th>排名</th>
-            <th>团队 / 队伍</th>
-            <th>机构</th>
-            <th>赛道</th>
-            <th>Q-Score</th>
-            <th>提交日期</th>
+            <th style="width:50px;text-align:center;">#</th>
+            <th style="min-width:180px;">团队 / Team</th>
+            <th style="min-width:200px;">机构 / Organization</th>
+            <th style="min-width:160px;">所属 / Affiliation</th>
           </tr>
         </thead>
         <tbody>
+          <!-- 1 -->
           <tr class="rank-1">
-            <td><span class="rank-num">1</span></td>
+            <td style="text-align:center;font-weight:800;color:var(--gold);font-size:15px;background:#FFF8E1;">1</td>
             <td><strong>Robot Learning Collective</strong></td>
+            <td>Independent</td>
             <td>独立团队</td>
-            <td><span class="track-badge track-std">Standard</span></td>
-            <td>
-              <div class="score-bar-wrap">
-                <div class="score-bar-bg"><div class="score-bar" style="width:100%;"></div></div>
-                <span class="score-val">0.2599</span>
-              </div>
-            </td>
-            <td>2025-11-16</td>
           </tr>
+          <!-- 2 -->
           <tr class="rank-2">
-            <td><span class="rank-num">2</span></td>
+            <td style="text-align:center;font-weight:800;color:#C0C0C0;font-size:15px;background:#F5F5F5;">2</td>
             <td><strong>Comet</strong></td>
             <td>NVIDIA Research</td>
-            <td><span class="track-badge track-std">Standard</span></td>
-            <td>
-              <div class="score-bar-wrap">
-                <div class="score-bar-bg"><div class="score-bar" style="width:97%;"></div></div>
-                <span class="score-val">0.2514</span>
-              </div>
-            </td>
-            <td>2025-11-16</td>
+            <td>NVIDIA 研究</td>
           </tr>
+          <!-- 3 -->
           <tr class="rank-3">
-            <td><span class="rank-num">3</span></td>
+            <td style="text-align:center;font-weight:800;color:#CD7F32;font-size:15px;background:#FDF3E6;">3</td>
             <td><strong>SimpleAI Robot</strong></td>
+            <td>Simple AI Technology</td>
             <td>北京简单人工智能科技</td>
-            <td><span class="track-badge track-std">Standard</span></td>
-            <td>
-              <div class="score-bar-wrap">
-                <div class="score-bar-bg"><div class="score-bar" style="width:61%;"></div></div>
-                <span class="score-val">0.1591</span>
-              </div>
-            </td>
-            <td>2025-11-16</td>
           </tr>
-          <tr>
-            <td><span class="rank-num">4</span></td>
+          <!-- 4 -->
+          <tr style="background:#FAFCFF;">
+            <td style="text-align:center;font-weight:700;color:var(--gray500);font-size:14px;">4</td>
             <td><strong>The North Star</strong></td>
+            <td>Huawei CRI EAI Team</td>
             <td>华为 CRI EAI 团队</td>
-            <td><span class="track-badge track-std">Standard</span></td>
-            <td>
-              <div class="score-bar-wrap">
-                <div class="score-bar-bg"><div class="score-bar" style="width:46%;"></div></div>
-                <span class="score-val">0.1204</span>
-              </div>
-            </td>
-            <td>2025-11-15</td>
           </tr>
+          <!-- 5 -->
           <tr>
-            <td><span class="rank-num">5</span></td>
+            <td style="text-align:center;font-weight:700;color:var(--gray500);font-size:14px;">5</td>
             <td><strong>Embodied Intelligence</strong></td>
+            <td>Independent</td>
             <td>独立团队</td>
-            <td><span class="track-badge track-priv">Privileged</span></td>
-            <td>
-              <div class="score-bar-wrap">
-                <div class="score-bar-bg"><div class="score-bar" style="width:36%;"></div></div>
-                <span class="score-val">0.0947</span>
-              </div>
-            </td>
-            <td>2025-11-16</td>
           </tr>
+          <!-- 6 -->
+          <tr style="background:#FAFCFF;">
+            <td style="text-align:center;font-weight:700;color:var(--gray500);font-size:14px;">6</td>
+            <td><strong>RAPPER</strong></td>
+            <td>GIST</td>
+            <td>韩国光州科学技术院</td>
+          </tr>
+          <!-- 7 -->
           <tr>
-            <td><span class="rank-num" style="font-size:11px;">6–17</span></td>
-            <td colspan="4" style="color:var(--gray400);font-style:italic;font-size:13px;">其他参赛团队（含斯坦福、CMU 等高校实验室及多家独立团队）</td>
-            <td>—</td>
+            <td style="text-align:center;font-weight:700;color:var(--gray500);font-size:14px;">7</td>
+            <td><strong>tobi</strong></td>
+            <td>Alzonova</td>
+            <td>Alzonova</td>
           </tr>
-          <!-- MAGIKID -->
+          <!-- 8 -->
+          <tr style="background:#FAFCFF;">
+            <td style="text-align:center;font-weight:700;color:var(--gray500);font-size:14px;">8</td>
+            <td><strong>MR</strong></td>
+            <td>MR</td>
+            <td>MR</td>
+          </tr>
+          <!-- 9 -->
+          <tr>
+            <td style="text-align:center;font-weight:700;color:var(--gray500);font-size:14px;">9</td>
+            <td><strong>RACeL</strong></td>
+            <td>CMU</td>
+            <td>卡内基梅隆大学</td>
+          </tr>
+          <!-- 10 -->
+          <tr style="background:#FAFCFF;">
+            <td style="text-align:center;font-weight:700;color:var(--gray500);font-size:14px;">10</td>
+            <td><strong>Ahri+EFFL+MLV</strong></td>
+            <td>Postech</td>
+            <td>浦项工科大学</td>
+          </tr>
+          <!-- 11 -->
+          <tr>
+            <td style="text-align:center;font-weight:700;color:var(--gray500);font-size:14px;">11</td>
+            <td><strong>Merlin Labs</strong></td>
+            <td>Independent</td>
+            <td>梅林实验室｜独立团队</td>
+          </tr>
+          <!-- 12 -->
+          <tr style="background:#FAFCFF;">
+            <td style="text-align:center;font-weight:700;color:var(--gray500);font-size:14px;">12</td>
+            <td><strong>LYQRobotics</strong></td>
+            <td>Independent</td>
+            <td>独立团队</td>
+          </tr>
+          <!-- 13 -->
+          <tr>
+            <td style="text-align:center;font-weight:700;color:var(--gray500);font-size:14px;">13</td>
+            <td><strong>ACT</strong></td>
+            <td>Xiamen University</td>
+            <td>厦门大学</td>
+          </tr>
+          <!-- 14 -->
+          <tr style="background:#FAFCFF;">
+            <td style="text-align:center;font-weight:700;color:var(--gray500);font-size:14px;">14</td>
+            <td><strong>StarVLA</strong></td>
+            <td>Independent</td>
+            <td>独立团队</td>
+          </tr>
+          <!-- 15 -->
+          <tr>
+            <td style="text-align:center;font-weight:700;color:var(--gray500);font-size:14px;">15</td>
+            <td><strong>Cloud-Data</strong></td>
+            <td>Cloud Data Technology Co Ltd</td>
+            <td>云数据科技有限公司</td>
+          </tr>
+          <!-- 16 -->
+          <tr style="background:#FAFCFF;">
+            <td style="text-align:center;font-weight:700;color:var(--gray500);font-size:14px;">16</td>
+            <td><strong>RobotSimArk</strong></td>
+            <td>1</td>
+            <td>1</td>
+          </tr>
+          <!-- 17 -->
+          <tr>
+            <td style="text-align:center;font-weight:700;color:var(--gray500);font-size:14px;">17</td>
+            <td><strong>EntropyMaximum</strong></td>
+            <td>Independent</td>
+            <td>独立团队</td>
+          </tr>
+          <!-- 18 MAGIKID 高亮 -->
           <tr class="rank-magikid">
-            <td><span class="rank-num">18</span></td>
+            <td style="text-align:center;font-weight:800;color:#fff;font-size:15px;background:var(--red);border-radius:6px;width:36px;height:36px;display:inline-flex;align-items:center;justify-content:center;margin:2px auto;box-shadow:0 2px 8px rgba(220,38,38,0.35);">18</td>
             <td>
-              <strong>Magikid</strong>
-              <span class="magikid-badge">🏅 唯一 K-12</span>
+              <strong style="color:var(--red);font-size:16px;">Magikid</strong>
+              <span class="magikid-badge" style="margin-left:8px;">🏅 唯一 K-12</span>
             </td>
-            <td>MAGIKID（深圳）</td>
-            <td><span class="track-badge track-std">Standard</span></td>
-            <td>
-              <div class="score-bar-wrap">
-                <div class="score-bar-bg"><div class="score-bar" style="width:1%;background:var(--red);"></div></div>
-                <span class="score-val" style="color:var(--red);">0.0000</span>
-              </div>
-            </td>
-            <td>2025-11-16</td>
+            <td><strong>Magikid</strong></td>
+            <td><strong>魔力小孩</strong></td>
           </tr>
         </tbody>
       </table>
