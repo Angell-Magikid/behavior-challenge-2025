@@ -276,6 +276,94 @@
     }
     .mh-right .note { font-size:12px; color:rgba(255,255,255,.4); }
 
+
+    /* ─── CURRICULUM ─── */
+    .curr-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 24px;
+      margin-bottom: 48px;
+    }
+    .curr-card {
+      background: var(--white);
+      border: 1px solid var(--gray200);
+      border-radius: var(--radius-lg);
+      padding: 28px 26px 24px;
+      box-shadow: var(--shadow-sm);
+      display: flex; flex-direction: column; gap: 10px;
+      transition: transform .25s, box-shadow .25s;
+      position: relative; overflow: hidden;
+    }
+    .curr-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--blue));
+    }
+    .curr-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
+    .curr-card-super {
+      border-color: rgba(230,57,70,.35);
+      background: linear-gradient(160deg, #fff 0%, #fff8f8 100%);
+    }
+    .curr-card-super::before { background: linear-gradient(90deg, var(--red), #f59e0b); }
+    .curr-level-badge {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 52px; height: 28px; border-radius: 6px;
+      color: #fff; font-size: 11px; font-weight: 800; letter-spacing: 1px;
+    }
+    .curr-icon { font-size: 28px; margin: 4px 0 0; }
+    .curr-meta { font-size: 11.5px; color: var(--gray500); font-weight: 600; letter-spacing: .5px; }
+    .curr-title { font-size: 20px; font-weight: 800; color: var(--gray900); line-height: 1.2; }
+    .curr-desc { font-size: 13px; color: var(--gray500); line-height: 1.7; }
+    .curr-lessons {
+      list-style: none; display: flex; flex-direction: column; gap: 5px;
+      margin: 4px 0;
+    }
+    .curr-lessons li {
+      font-size: 12.5px; color: var(--gray700); padding-left: 18px; position: relative; line-height: 1.5;
+    }
+    .curr-lessons li::before {
+      content: '▸'; position: absolute; left: 0; color: var(--accent); font-size: 10px; top: 2px;
+    }
+    .curr-card-super .curr-lessons li::before { color: var(--red); }
+    .curr-milestone {
+      margin-top: 6px; padding: 10px 14px;
+      background: var(--gray50); border: 1px solid var(--gray200);
+      border-radius: var(--radius); font-size: 12px; font-weight: 600; color: var(--gray700);
+    }
+    .curr-card-super .curr-milestone {
+      background: rgba(230,57,70,.06); border-color: rgba(230,57,70,.2); color: var(--red);
+    }
+    /* Timeline bar */
+    .curr-timeline {
+      background: var(--white); border: 1px solid var(--gray200);
+      border-radius: var(--radius-lg); padding: 28px 32px; box-shadow: var(--shadow-sm);
+    }
+    .curr-tl-label {
+      font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+      color: var(--gray500); margin-bottom: 14px;
+    }
+    .curr-tl-bar {
+      display: flex; border-radius: 8px; overflow: hidden; height: 56px;
+    }
+    .curr-tl-seg {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      color: #fff; font-size: 12px; font-weight: 700; line-height: 1.3;
+      text-align: center;
+    }
+    .curr-tl-seg small { font-size: 10px; font-weight: 500; opacity: .85; }
+    .curr-tl-labels {
+      display: flex; margin-top: 8px;
+    }
+    .curr-tl-labels span {
+      flex: 1; text-align: center; font-size: 11px; color: var(--gray500); font-weight: 600;
+    }
+    @media(max-width:768px){
+      .curr-grid { grid-template-columns: 1fr; }
+      .curr-tl-bar { height: 44px; }
+      .curr-tl-seg { font-size: 10px; }
+      .curr-tl-labels span { font-size: 9px; }
+    }
+
     /* ─── FOOTER ─── */
     footer {
       background:var(--blue-dark); color:rgba(255,255,255,.45);
@@ -742,6 +830,172 @@
         <div class="prize-extra">+ $500 Brev 积分</div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ CURRICULUM ═══════════════════════════ -->
+<section id="curriculum" style="background:var(--gray50);">
+  <div class="container">
+    <div class="section-tag">MAGIKID Robotics Program</div>
+    <h2 class="section-title">From Robot Hand to <em>Super-Humanoid</em></h2>
+    <div class="divider"></div>
+    <p class="section-desc">
+      A 10-month structured curriculum bridging mechanical design, motion control, and AI — guiding students from building their first robotic gripper all the way to programming a full humanoid robot.
+    </p>
+
+    <!-- Program Stats -->
+    <div class="stat-row" style="margin-bottom:56px;">
+      <div class="stat-item">
+        <div class="num">10</div><div class="unit" style="font-size:14px;font-weight:700;color:var(--accent);">Months</div>
+        <div class="label">Full Program Duration</div>
+      </div>
+      <div class="stat-item">
+        <div class="num">5</div><div class="unit" style="font-size:14px;font-weight:700;color:var(--accent);">Levels</div>
+        <div class="label">Progressive Skill Tracks</div>
+      </div>
+      <div class="stat-item">
+        <div class="num">40</div><div class="unit" style="font-size:14px;font-weight:700;color:var(--accent);">Lessons</div>
+        <div class="label">8 Lessons per Level</div>
+      </div>
+      <div class="stat-item">
+        <div class="num">1×</div><div class="unit" style="font-size:14px;font-weight:700;color:var(--accent);">Week</div>
+        <div class="label">One Session per Week</div>
+      </div>
+    </div>
+
+    <!-- Level Cards -->
+    <div class="curr-grid">
+
+      <!-- LEVEL 1 -->
+      <div class="curr-card">
+        <div class="curr-level-badge" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);">LV 01</div>
+        <div class="curr-icon">🤖</div>
+        <div class="curr-meta">Weeks 1 – 8 &nbsp;·&nbsp; 2 Months</div>
+        <h3 class="curr-title">Robot Hand</h3>
+        <p class="curr-desc">Understand degrees of freedom, joint mechanics, and how a robotic gripper grasps and manipulates objects.</p>
+        <ul class="curr-lessons">
+          <li>Introduction to DOF &amp; gripper anatomy</li>
+          <li>Servo motors &amp; actuation basics</li>
+          <li>3D-printed finger design</li>
+          <li>Tendon-driven vs rigid-link mechanisms</li>
+          <li>Force &amp; pressure sensing</li>
+          <li>Pick-and-place programming</li>
+          <li>Grasp planning fundamentals</li>
+          <li>Capstone: autonomous grasping demo</li>
+        </ul>
+        <div class="curr-milestone">🎯 Milestone: Build &amp; program a 3-DOF robotic gripper</div>
+      </div>
+
+      <!-- LEVEL 2 -->
+      <div class="curr-card">
+        <div class="curr-level-badge" style="background:linear-gradient(135deg,#8b5cf6,#6d28d9);">LV 02</div>
+        <div class="curr-icon">🦾</div>
+        <div class="curr-meta">Weeks 9 – 16 &nbsp;·&nbsp; 2 Months</div>
+        <h3 class="curr-title">Robot Arm</h3>
+        <p class="curr-desc">Design and control a multi-joint robotic arm. Learn kinematics, trajectory planning, and real-time feedback control.</p>
+        <ul class="curr-lessons">
+          <li>Forward &amp; inverse kinematics</li>
+          <li>Jacobian matrix &amp; workspace analysis</li>
+          <li>PID control for joint angles</li>
+          <li>ROS 2 introduction &amp; URDF modeling</li>
+          <li>Trajectory planning &amp; interpolation</li>
+          <li>Vision-guided arm control</li>
+          <li>Collision avoidance strategies</li>
+          <li>Capstone: arm picks objects via camera</li>
+        </ul>
+        <div class="curr-milestone">🎯 Milestone: 6-DOF arm controlled by vision pipeline</div>
+      </div>
+
+      <!-- LEVEL 3 -->
+      <div class="curr-card">
+        <div class="curr-level-badge" style="background:linear-gradient(135deg,#06b6d4,#0284c7);">LV 03</div>
+        <div class="curr-icon">🧠</div>
+        <div class="curr-meta">Weeks 17 – 24 &nbsp;·&nbsp; 2 Months</div>
+        <h3 class="curr-title">Motion Simulation</h3>
+        <p class="curr-desc">Simulate full-body robot motion in physics engines. Train motion policies using reinforcement learning on MuJoCo &amp; Isaac Sim.</p>
+        <ul class="curr-lessons">
+          <li>Physics simulation principles (MuJoCo)</li>
+          <li>Robot model import &amp; scene setup</li>
+          <li>Reinforcement learning basics (PPO/SAC)</li>
+          <li>Reward function design</li>
+          <li>Sim-to-real transfer concepts</li>
+          <li>Motion capture data &amp; retargeting</li>
+          <li>Whole-body motion optimization</li>
+          <li>Capstone: train a walking gait policy</li>
+        </ul>
+        <div class="curr-milestone">🎯 Milestone: Trained locomotion policy in simulation</div>
+      </div>
+
+      <!-- LEVEL 4 -->
+      <div class="curr-card">
+        <div class="curr-level-badge" style="background:linear-gradient(135deg,#f59e0b,#d97706);">LV 04</div>
+        <div class="curr-icon">🚶</div>
+        <div class="curr-meta">Weeks 25 – 32 &nbsp;·&nbsp; 2 Months</div>
+        <h3 class="curr-title">Humanoid Robot</h3>
+        <p class="curr-desc">Integrate everything into a full humanoid platform. Program whole-body control, task execution, and human–robot interaction.</p>
+        <ul class="curr-lessons">
+          <li>Humanoid hardware overview (Unitree, H1)</li>
+          <li>Whole-body control (WBC) framework</li>
+          <li>Balance &amp; bipedal locomotion</li>
+          <li>Loco-manipulation: walk + grasp</li>
+          <li>SLAM &amp; navigation on humanoids</li>
+          <li>Language-instruction interfaces (LLM→action)</li>
+          <li>Safety &amp; emergency stop systems</li>
+          <li>Capstone: humanoid completes a household task</li>
+        </ul>
+        <div class="curr-milestone">🎯 Milestone: Humanoid autonomously navigates &amp; picks an object</div>
+      </div>
+
+      <!-- LEVEL 5 -->
+      <div class="curr-card curr-card-super">
+        <div class="curr-level-badge" style="background:linear-gradient(135deg,#e63946,#c0392b);">LV 05</div>
+        <div class="curr-icon">✨</div>
+        <div class="curr-meta">Weeks 33 – 40 &nbsp;·&nbsp; 2 Months</div>
+        <h3 class="curr-title">Super-Humanoid</h3>
+        <p class="curr-desc">Push the frontier. Design AI systems that let humanoid robots learn, adapt, and collaborate on tasks never seen before — the BEHAVIOR-1K challenge level.</p>
+        <ul class="curr-lessons">
+          <li>Foundation models for robotics (VLA)</li>
+          <li>BEHAVIOR-1K task framework &amp; benchmark</li>
+          <li>Multi-modal perception (vision + language + touch)</li>
+          <li>Online learning &amp; few-shot adaptation</li>
+          <li>Multi-agent &amp; human-robot collaboration</li>
+          <li>Ethics, safety, and responsible AI in robotics</li>
+          <li>Stanford BEHAVIOR challenge strategy &amp; submission</li>
+          <li>Final Demo Day: real or simulated challenge task</li>
+        </ul>
+        <div class="curr-milestone">🏆 Final Milestone: Submit to Stanford BEHAVIOR Challenge</div>
+      </div>
+
+    </div><!-- /curr-grid -->
+
+    <!-- Program Timeline bar -->
+    <div class="curr-timeline">
+      <div class="curr-tl-label">Program Roadmap — 40 Weeks</div>
+      <div class="curr-tl-bar">
+        <div class="curr-tl-seg" style="background:#3b82f6;width:20%;">LV 01<br><small>Wk 1–8</small></div>
+        <div class="curr-tl-seg" style="background:#8b5cf6;width:20%;">LV 02<br><small>Wk 9–16</small></div>
+        <div class="curr-tl-seg" style="background:#06b6d4;width:20%;">LV 03<br><small>Wk 17–24</small></div>
+        <div class="curr-tl-seg" style="background:#f59e0b;width:20%;">LV 04<br><small>Wk 25–32</small></div>
+        <div class="curr-tl-seg" style="background:#e63946;width:20%;">LV 05<br><small>Wk 33–40</small></div>
+      </div>
+      <div class="curr-tl-labels">
+        <span>Robot Hand</span>
+        <span>Robot Arm</span>
+        <span>Motion Sim</span>
+        <span>Humanoid</span>
+        <span>Super-Humanoid</span>
+      </div>
+    </div>
+
+    <p style="text-align:center;margin-top:32px;">
+      <a href="https://magikidlab.com" target="_blank"
+        style="display:inline-block;padding:14px 40px;background:var(--blue);color:#fff;border-radius:999px;font-weight:700;font-size:15px;text-decoration:none;box-shadow:var(--shadow-md);transition:transform .2s,box-shadow .2s;"
+        onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 10px 32px rgba(29,53,87,.35)'"
+        onmouseout="this.style.transform='';this.style.boxShadow='var(--shadow-md)'">
+        Apply for the Program →
+      </a>
+    </p>
+
   </div>
 </section>
 
