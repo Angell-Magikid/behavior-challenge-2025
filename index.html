@@ -36,7 +36,9 @@
 
     /* ─── HERO ─── */
     .hero {
-      background: linear-gradient(135deg, #050810 0%, #1d3557 60%, #0d2136 100%);
+      background: 
+        linear-gradient(180deg, rgba(5,8,16,.65) 0%, rgba(5,8,16,.55) 40%, rgba(29,53,87,.75) 100%),
+        url('image/OmniGibson part.png') center/cover no-repeat;
       padding: 80px 24px 64px;
       text-align: center;
       position: relative;
@@ -45,8 +47,17 @@
     .hero::before {
       content:'';
       position:absolute; inset:0;
-      background: radial-gradient(ellipse 90% 55% at 50% -5%, rgba(69,123,157,.4) 0%, transparent 70%);
+      background: radial-gradient(ellipse 90% 55% at 50% -5%, rgba(69,123,157,.35) 0%, transparent 70%);
       pointer-events:none;
+    }
+    .hero-season-title {
+      font-size: clamp(18px, 3vw, 28px);
+      font-weight: 800;
+      color: var(--gold);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 36px;
+      text-shadow: 0 2px 12px rgba(0,0,0,.5);
     }
     .hero-eyebrow {
       display:inline-flex; align-items:center; gap:8px;
@@ -467,6 +478,24 @@
     }
     .hero-img img { width:100%; display:block; }
 
+    /* ─── SECTION IMAGE ─── */
+    .section-img {
+      margin: 48px auto 0;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--gray200);
+    }
+    .section-img img { width: 100%; display: block; }
+    .section-img-full {
+      margin: 0 auto;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--gray200);
+    }
+    .section-img-full img { width: 100%; display: block; }
+
     /* ─── RESPONSIVE ─── */
     @media(max-width:768px){
       .achievement-wrap { grid-template-columns:1fr; text-align:center; padding:28px 22px; }
@@ -490,14 +519,10 @@
 
 <!-- ═══════════════════════════ HERO ═══════════════════════════ -->
 <div class="hero">
+  <div class="hero-season-title" data-i18n="hero-season">2026 New Season Stars</div>
   <div class="hero-eyebrow" data-i18n="hero-eyebrow">🏆 深度分析报告</div>
   <h1 data-i18n="hero-title">Stanford <em>BEHAVIOR</em><br>人形机器人挑战赛</h1>
   <p class="hero-sub" data-i18n="hero-sub">全球首个以真实人类需求为核心的具身智能基准 · 2025 年 NeurIPS 官方赛道</p>
-
-  <!-- BEHAVIOR 官方 Hero 大图 -->
-  <div class="hero-img">
-    <img src="behavior-hero.png" data-i18n-alt="hero-img-alt" alt="BEHAVIOR - 人形机器人在厨房场景中执行任务" />
-  </div>
 
   <!-- MAGIKID 成就 -->
   <div class="achievement-wrap">
@@ -566,6 +591,11 @@
         <p data-i18n="bg-card-4-p">2025 年挑战赛于 NeurIPS（全球顶级 AI 学术会议）发布，吸引来自 4 个国家、学术与工业界共 18 支团队提交。</p>
       </div>
     </div>
+
+    <!-- 1000 Challenges 图 -->
+    <div class="section-img">
+      <img src="image/1000 Challenges.png" alt="BEHAVIOR-1K Challenges" />
+    </div>
   </div>
 </section>
 
@@ -617,6 +647,11 @@
         <div class="name">NVIDIA Research</div>
         <div class="affil">OmniGibson 仿真平台 · Isaac Sim 支持</div>
       </div>
+    </div>
+
+    <!-- Core TEAM 图 -->
+    <div class="section-img">
+      <img src="image/Core TEAM.png" alt="BEHAVIOR Core Team" />
     </div>
   </div>
 </section>
@@ -695,6 +730,11 @@
         <div style="font-size:12px;color:var(--red);font-weight:700;margin-bottom:4px;" data-i18n="tl-4-label">获奖颁布 · NeurIPS</div>
         <div style="font-size:15px;font-weight:700;color:var(--gray900);">2025 年 12 月 6–7 日</div>
       </div>
+    </div>
+
+    <!-- Competition 图 -->
+    <div class="section-img">
+      <img src="image/Competition.png" alt="BEHAVIOR Competition Tracks" />
     </div>
   </div>
 </section>
@@ -1080,6 +1120,11 @@
       </div>
     </div>
 
+    <!-- OmniGibson 图 -->
+    <div class="section-img">
+      <img src="image/TOP.png" alt="OmniGibson Simulation Platform" />
+    </div>
+
     <!-- ── PROGRAM OUTCOMES ── -->
     <div style="margin-top:64px;">
       <div class="section-tag" style="text-align:center;margin:0 auto 10px;" data-i18n="oc-tag">What You Earn</div>
@@ -1196,6 +1241,7 @@
 <script>
 (function(){
   const zh = {
+    'hero-season': '2026 New Season Stars',
     'hero-eyebrow': '🏆 深度分析报告',
     'hero-title': 'Stanford <em>BEHAVIOR</em><br>人形机器人挑战赛',
     'hero-sub': '全球首个以真实人类需求为核心的具身智能基准 · 2025 年 NeurIPS 官方赛道',
@@ -1386,6 +1432,7 @@
   };
 
   const en = {
+    'hero-season': '2026 New Season Stars',
     'hero-eyebrow': '🏆 In-Depth Analysis',
     'hero-title': 'Stanford <em>BEHAVIOR</em><br>Humanoid Robot Challenge',
     'hero-sub': 'The world\'s first embodied AI benchmark driven by real human needs · 2025 NeurIPS Official Track',
