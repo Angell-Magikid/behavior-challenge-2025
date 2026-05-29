@@ -426,6 +426,31 @@
       .outcomes-grid { grid-template-columns: 1fr; }
     }
 
+    /* ─── LANG SWITCHER ─── */
+    .lang-switch {
+      position: fixed; top: 16px; right: 16px; z-index: 9999;
+      display: flex; gap: 0;
+      background: rgba(255,255,255,.12);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .lang-btn {
+      padding: 8px 18px; font-size: 13px; font-weight: 700;
+      border: none; background: transparent; color: rgba(255,255,255,.6);
+      cursor: pointer; transition: all .25s; letter-spacing: .5px;
+      line-height: 1.4;
+    }
+    .lang-btn.active {
+      background: rgba(255,255,255,.22); color: #fff;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.1);
+    }
+    .lang-btn:hover { color: #fff; background: rgba(255,255,255,.1); }
+    [lang] { transition: opacity .15s; }
+    [lang].hidden { display: none; }
+
     /* ─── FOOTER ─── */
     footer {
       background:var(--blue-dark); color:rgba(255,255,255,.45);
@@ -457,15 +482,21 @@
 </head>
 <body>
 
+<!-- 语言切换按钮 -->
+<div class="lang-switch" id="langSwitch">
+  <button class="lang-btn active" data-lang="zh" onclick="switchLang('zh')">中文</button>
+  <button class="lang-btn" data-lang="en" onclick="switchLang('en')">EN</button>
+</div>
+
 <!-- ═══════════════════════════ HERO ═══════════════════════════ -->
 <div class="hero">
-  <div class="hero-eyebrow">🏆 深度分析报告</div>
-  <h1>Stanford <em>BEHAVIOR</em><br>人形机器人挑战赛</h1>
-  <p class="hero-sub">全球首个以真实人类需求为核心的具身智能基准 · 2025 年 NeurIPS 官方赛道</p>
+  <div class="hero-eyebrow" data-i18n="hero-eyebrow">🏆 深度分析报告</div>
+  <h1 data-i18n="hero-title">Stanford <em>BEHAVIOR</em><br>人形机器人挑战赛</h1>
+  <p class="hero-sub" data-i18n="hero-sub">全球首个以真实人类需求为核心的具身智能基准 · 2025 年 NeurIPS 官方赛道</p>
 
   <!-- BEHAVIOR 官方 Hero 大图 -->
   <div class="hero-img">
-    <img src="behavior-hero.png" alt="BEHAVIOR - 人形机器人在厨房场景中执行任务" />
+    <img src="behavior-hero.png" data-i18n-alt="hero-img-alt" alt="BEHAVIOR - 人形机器人在厨房场景中执行任务" />
   </div>
 
   <!-- MAGIKID 成就 -->
@@ -474,11 +505,11 @@
       <span>TOP</span>18
     </div>
     <div class="achievement-text">
-      <h2>🎉 MAGIKID 全球第 18 名</h2>
-      <p>
+      <div data-i18n="achieve-title"><h2>🎉 MAGIKID 全球第 18 名</h2></div>
+      <div data-i18n="achieve-p"><p>
         在 2025 BEHAVIOR 挑战赛中，<strong>MAGIKID 是排行榜上唯一的 K-12 教育机构</strong>，<br>
         与 NVIDIA、华为等科技巨头及斯坦福、CMU 等顶尖高校实验室同台竞技。
-      </p>
+      </p></div>
     </div>
   </div>
 </div>
@@ -486,10 +517,10 @@
 <!-- ═══════════════════════════ 比赛背景 ═══════════════════════════ -->
 <section>
   <div class="container">
-    <div class="section-tag">比赛背景</div>
-    <h2 class="section-title">BEHAVIOR-1K —— 具身智能的<em>现实考场</em></h2>
+    <div class="section-tag" data-i18n="sec-bg">比赛背景</div>
+    <h2 class="section-title" data-i18n="bg-title">BEHAVIOR-1K —— 具身智能的<em>现实考场</em></h2>
     <div class="divider"></div>
-    <p class="section-desc">
+    <p class="section-desc" data-i18n="bg-desc">
       由斯坦福大学发起，基于大规模社会调查——询问真实用户「希望机器人帮你做什么」，
       从答案中提炼出 1,000 项家庭活动，构建出迄今最贴近现实人类需求的机器人基准测试。
     </p>
@@ -497,42 +528,42 @@
     <div class="stat-row">
       <div class="stat-item">
         <div class="num">1,000</div>
-        <div class="label">家庭活动任务</div>
+        <div class="label" data-i18n="bg-stat-1-label">家庭活动任务</div>
       </div>
       <div class="stat-item">
         <div class="num">50</div>
-        <div class="label">完整可交互场景</div>
+        <div class="label" data-i18n="bg-stat-2-label">完整可交互场景</div>
       </div>
       <div class="stat-item">
         <div class="num">10,000<span class="unit">+</span></div>
-        <div class="label">场景中的物体</div>
+        <div class="label" data-i18n="bg-stat-3-label">场景中的物体</div>
       </div>
       <div class="stat-item">
         <div class="num">1,200<span class="unit">h+</span></div>
-        <div class="label">遥操作专家演示数据</div>
+        <div class="label" data-i18n="bg-stat-4-label">遥操作专家演示数据</div>
       </div>
     </div>
 
     <div class="bg-grid">
       <div class="bg-card">
         <div class="bg-card-icon">🤖</div>
-        <h3>以人类需求为驱动</h3>
-        <p>基于广泛的社会调查收集"你希望机器人帮你做什么"，确保任务与真实生活高度贴合，而非实验室场景。</p>
+        <h3 data-i18n="bg-card-1-title">以人类需求为驱动</h3>
+        <p data-i18n="bg-card-1-p">基于广泛的社会调查收集"你希望机器人帮你做什么"，确保任务与真实生活高度贴合，而非实验室场景。</p>
       </div>
       <div class="bg-card">
         <div class="bg-card-icon">🔬</div>
-        <h3>OmniGibson 仿真平台</h3>
-        <p>基于 NVIDIA Isaac Sim，支持流体、柔性物体、透明物体、热效应等高真实度物理模拟，远超传统仿真器。</p>
+        <h3 data-i18n="bg-card-2-title">OmniGibson 仿真平台</h3>
+        <p data-i18n="bg-card-2-p">基于 NVIDIA Isaac Sim，支持流体、柔性物体、透明物体、热效应等高真实度物理模拟，远超传统仿真器。</p>
       </div>
       <div class="bg-card">
         <div class="bg-card-icon">🏠</div>
-        <h3>长周期移动操作</h3>
-        <p>任务覆盖整理、烹饪、清洁、安装等复杂连续步骤，测试机器人在家庭规模场景中的高级推理与操控能力。</p>
+        <h3 data-i18n="bg-card-3-title">长周期移动操作</h3>
+        <p data-i18n="bg-card-3-p">任务覆盖整理、烹饪、清洁、安装等复杂连续步骤，测试机器人在家庭规模场景中的高级推理与操控能力。</p>
       </div>
       <div class="bg-card">
         <div class="bg-card-icon">🌍</div>
-        <h3>NeurIPS 官方赛道</h3>
-        <p>2025 年挑战赛于 NeurIPS（全球顶级 AI 学术会议）发布，吸引来自 4 个国家、学术与工业界共 18 支团队提交。</p>
+        <h3 data-i18n="bg-card-4-title">NeurIPS 官方赛道</h3>
+        <p data-i18n="bg-card-4-p">2025 年挑战赛于 NeurIPS（全球顶级 AI 学术会议）发布，吸引来自 4 个国家、学术与工业界共 18 支团队提交。</p>
       </div>
     </div>
   </div>
@@ -541,10 +572,10 @@
 <!-- ═══════════════════════════ 核心团队 ═══════════════════════════ -->
 <section style="background:var(--gray100);">
   <div class="container">
-    <div class="section-tag">核心团队</div>
-    <h2 class="section-title">斯坦福大学 <em>BEHAVIOR</em> 团队</h2>
+    <div class="section-tag" data-i18n="sec-team">核心团队</div>
+    <h2 class="section-title" data-i18n="team-title">斯坦福大学 <em>BEHAVIOR</em> 团队</h2>
     <div class="divider"></div>
-    <p class="section-desc">由斯坦福大学 AI Lab 主导，汇聚计算机视觉、机器人操控、具身智能等领域顶尖研究者。</p>
+    <p class="section-desc" data-i18n="team-desc">由斯坦福大学 AI Lab 主导，汇聚计算机视觉、机器人操控、具身智能等领域顶尖研究者。</p>
     <div class="team-grid">
       <div class="team-card">
         <div class="role">核心负责人</div>
@@ -593,48 +624,48 @@
 <!-- ═══════════════════════════ 比赛模式 ═══════════════════════════ -->
 <section>
   <div class="container">
-    <div class="section-tag">比赛模式</div>
-    <h2 class="section-title">两条赛道 · <em>评分体系</em></h2>
+    <div class="section-tag" data-i18n="sec-mode">比赛模式</div>
+    <h2 class="section-title" data-i18n="mode-title">两条赛道 · <em>评分体系</em></h2>
     <div class="divider"></div>
-    <p class="section-desc">
+    <p class="section-desc" data-i18n="mode-desc">
       参赛队伍提交机器人策略代码，在 OmniGibson 仿真器中执行 50 项家庭任务，
       以 Q-Score 为主排名指标，允许部分完成得分。
     </p>
 
     <div class="tracks-grid" style="margin-bottom:40px;">
       <div class="track-card std">
-        <h3>🔵 Standard Track · 标准赛道</h3>
+        <h3 data-i18n="track-std-title">🔵 Standard Track · 标准赛道</h3>
         <ul>
-          <li>仅使用机载传感器观测（RGB + 深度）</li>
-          <li>实例分割 + 本体感知数据</li>
-          <li>不可访问模拟器内部状态</li>
-          <li>最贴近真实机器人部署条件</li>
-          <li>MAGIKID 参赛赛道</li>
+          <li data-i18n="track-std-1">仅使用机载传感器观测（RGB + 深度）</li>
+          <li data-i18n="track-std-2">实例分割 + 本体感知数据</li>
+          <li data-i18n="track-std-3">不可访问模拟器内部状态</li>
+          <li data-i18n="track-std-4">最贴近真实机器人部署条件</li>
+          <li data-i18n="track-std-5">MAGIKID 参赛赛道</li>
         </ul>
       </div>
       <div class="track-card priv">
-        <h3>🟡 Privileged Track · 特权赛道</h3>
+        <h3 data-i18n="track-priv-title">🟡 Privileged Track · 特权赛道</h3>
         <ul>
-          <li>可访问模拟器任意内部信息</li>
-          <li>包括物体精确位姿、场景点云等</li>
-          <li>适合算法研究与上界探索</li>
-          <li>独立排名，不与标准赛道竞争</li>
+          <li data-i18n="track-priv-1">可访问模拟器任意内部信息</li>
+          <li data-i18n="track-priv-2">包括物体精确位姿、场景点云等</li>
+          <li data-i18n="track-priv-3">适合算法研究与上界探索</li>
+          <li data-i18n="track-priv-4">独立排名，不与标准赛道竞争</li>
         </ul>
       </div>
     </div>
 
     <!-- 评分说明 -->
     <div style="background:var(--gray100);border-radius:var(--radius-lg);padding:32px 36px;margin-bottom:32px;">
-      <h3 style="font-size:17px;font-weight:800;color:var(--gray900);margin-bottom:16px;">📊 Q-Score 评分机制</h3>
+      <h3 style="font-size:17px;font-weight:800;color:var(--gray900);margin-bottom:16px;" data-i18n="scoring-title">📊 Q-Score 评分机制</h3>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
         <div>
-          <p style="font-size:14px;color:var(--gray700);line-height:1.8;">
+          <p style="font-size:14px;color:var(--gray700);line-height:1.8;" data-i18n="scoring-left">
             Q-Score 通过计算已完成的<strong>子目标比例</strong>来评估策略表现，并选择最佳匹配的目标条款进行评分。
             即使任务未完全完成，只要取得有意义的阶段进展，即可获得部分分数，比二元成功率更平滑可靠。
           </p>
         </div>
         <div>
-          <p style="font-size:14px;color:var(--gray700);line-height:1.8;">
+          <p style="font-size:14px;color:var(--gray700);line-height:1.8;" data-i18n="scoring-right">
             <strong>辅助指标（效率维度）：</strong><br>
             · 模拟时间消耗<br>
             · 导航总距离<br>
@@ -646,22 +677,22 @@
     </div>
 
     <!-- 关键时间线 -->
-    <h3 style="font-size:16px;font-weight:700;color:var(--gray900);margin-bottom:20px;">⏱ 2025 赛季关键时间线</h3>
+    <h3 style="font-size:16px;font-weight:700;color:var(--gray900);margin-bottom:20px;" data-i18n="timeline-title">⏱ 2025 赛季关键时间线</h3>
     <div style="display:flex;flex-wrap:wrap;gap:12px;">
       <div style="background:var(--white);border:1px solid var(--gray200);border-radius:var(--radius);padding:14px 20px;min-width:180px;">
-        <div style="font-size:12px;color:var(--accent);font-weight:700;margin-bottom:4px;">挑战启动</div>
+        <div style="font-size:12px;color:var(--accent);font-weight:700;margin-bottom:4px;" data-i18n="tl-1-label">挑战启动</div>
         <div style="font-size:15px;font-weight:700;color:var(--gray900);">2025 年 9 月 2 日</div>
       </div>
       <div style="background:var(--white);border:1px solid var(--gray200);border-radius:var(--radius);padding:14px 20px;min-width:180px;">
-        <div style="font-size:12px;color:var(--accent);font-weight:700;margin-bottom:4px;">提交截止</div>
+        <div style="font-size:12px;color:var(--accent);font-weight:700;margin-bottom:4px;" data-i18n="tl-2-label">提交截止</div>
         <div style="font-size:15px;font-weight:700;color:var(--gray900);">2025 年 11 月 16 日</div>
       </div>
       <div style="background:var(--white);border:1px solid var(--gray200);border-radius:var(--radius);padding:14px 20px;min-width:180px;">
-        <div style="font-size:12px;color:var(--gold);font-weight:700;margin-bottom:4px;">排行榜公开</div>
+        <div style="font-size:12px;color:var(--gold);font-weight:700;margin-bottom:4px;" data-i18n="tl-3-label">排行榜公开</div>
         <div style="font-size:15px;font-weight:700;color:var(--gray900);">2025 年 12 月 1 日</div>
       </div>
       <div style="background:var(--white);border:1px solid var(--gray200);border-radius:var(--radius);padding:14px 20px;min-width:180px;">
-        <div style="font-size:12px;color:var(--red);font-weight:700;margin-bottom:4px;">获奖颁布 · NeurIPS</div>
+        <div style="font-size:12px;color:var(--red);font-weight:700;margin-bottom:4px;" data-i18n="tl-4-label">获奖颁布 · NeurIPS</div>
         <div style="font-size:15px;font-weight:700;color:var(--gray900);">2025 年 12 月 6–7 日</div>
       </div>
     </div>
@@ -671,10 +702,10 @@
 <!-- ═══════════════════════════ 排行榜 ═══════════════════════════ -->
 <section style="background:var(--gray100);">
   <div class="container">
-    <div class="section-tag">获奖情况</div>
-    <h2 class="section-title">2025 全球<em>排行榜</em>（Provisional）</h2>
+    <div class="section-tag" data-i18n="sec-lb">获奖情况</div>
+    <h2 class="section-title" data-i18n="lb-title">2025 全球<em>排行榜</em>（Provisional）</h2>
     <div class="divider"></div>
-    <p class="section-desc">
+    <p class="section-desc" data-i18n="lb-desc">
       来自 4 个国家共 18 支团队提交参赛，参与者涵盖科技巨头、顶尖高校实验室与独立研究团队。
     </p>
 
@@ -683,9 +714,9 @@
         <thead>
           <tr>
             <th style="width:50px;text-align:center;">#</th>
-            <th style="min-width:180px;">团队 / Team</th>
-            <th style="min-width:200px;">机构 / Organization</th>
-            <th style="min-width:160px;">所属 / Affiliation</th>
+            <th style="min-width:180px;" data-i18n="lb-th-team">团队 / Team</th>
+            <th style="min-width:200px;" data-i18n="lb-th-org">机构 / Organization</th>
+            <th style="min-width:160px;" data-i18n="lb-th-affil">所属 / Affiliation</th>
           </tr>
         </thead>
         <tbody>
@@ -694,134 +725,134 @@
             <td style="text-align:center;font-weight:800;color:var(--gold);font-size:15px;background:#FFF8E1;">1</td>
             <td><strong>Robot Learning Collective</strong></td>
             <td>Independent</td>
-            <td>独立团队</td>
+            <td data-i18n="lb-1-affil">独立团队</td>
           </tr>
           <!-- 2 -->
           <tr class="rank-2">
             <td style="text-align:center;font-weight:800;color:#C0C0C0;font-size:15px;background:#F5F5F5;">2</td>
             <td><strong>Comet</strong></td>
             <td>NVIDIA Research</td>
-            <td>NVIDIA 研究</td>
+            <td data-i18n="lb-2-affil">NVIDIA 研究</td>
           </tr>
           <!-- 3 -->
           <tr class="rank-3">
             <td style="text-align:center;font-weight:800;color:#CD7F32;font-size:15px;background:#FDF3E6;">3</td>
             <td><strong>SimpleAI Robot</strong></td>
             <td>Simple AI Technology</td>
-            <td>北京简单人工智能科技</td>
+            <td data-i18n="lb-3-affil">北京简单人工智能科技</td>
           </tr>
           <!-- 4 -->
           <tr style="background:#FAFCFF;">
             <td style="text-align:center;font-weight:700;color:var(--gray500);font-size:14px;">4</td>
             <td><strong>The North Star</strong></td>
             <td>Huawei CRI EAI Team</td>
-            <td>华为 CRI EAI 团队</td>
+            <td data-i18n="lb-4-affil">华为 CRI EAI 团队</td>
           </tr>
           <!-- 5 -->
           <tr>
             <td style="text-align:center;font-weight:700;color:var(--gray500);font-size:14px;">5</td>
             <td><strong>Embodied Intelligence</strong></td>
             <td>Independent</td>
-            <td>独立团队</td>
+            <td data-i18n="lb-5-affil">独立团队</td>
           </tr>
           <!-- 6 -->
           <tr style="background:#FAFCFF;">
             <td style="text-align:center;font-weight:700;color:var(--gray500);font-size:14px;">6</td>
             <td><strong>RAPPER</strong></td>
             <td>GIST</td>
-            <td>韩国光州科学技术院</td>
+            <td data-i18n="lb-6-affil">韩国光州科学技术院</td>
           </tr>
           <!-- 7 -->
           <tr>
             <td style="text-align:center;font-weight:700;color:var(--gray500);font-size:14px;">7</td>
             <td><strong>tobi</strong></td>
             <td>Alzonova</td>
-            <td>Alzonova</td>
+            <td data-i18n="lb-7-affil">Alzonova</td>
           </tr>
           <!-- 8 -->
           <tr style="background:#FAFCFF;">
             <td style="text-align:center;font-weight:700;color:var(--gray500);font-size:14px;">8</td>
             <td><strong>MR</strong></td>
             <td>MR</td>
-            <td>MR</td>
+            <td data-i18n="lb-8-affil">MR</td>
           </tr>
           <!-- 9 -->
           <tr>
             <td style="text-align:center;font-weight:700;color:var(--gray500);font-size:14px;">9</td>
             <td><strong>RACeL</strong></td>
             <td>CMU</td>
-            <td>卡内基梅隆大学</td>
+            <td data-i18n="lb-9-affil">卡内基梅隆大学</td>
           </tr>
           <!-- 10 -->
           <tr style="background:#FAFCFF;">
             <td style="text-align:center;font-weight:700;color:var(--gray500);font-size:14px;">10</td>
             <td><strong>Ahri+EFFL+MLV</strong></td>
             <td>Postech</td>
-            <td>浦项工科大学</td>
+            <td data-i18n="lb-10-affil">浦项工科大学</td>
           </tr>
           <!-- 11 -->
           <tr>
             <td style="text-align:center;font-weight:700;color:var(--gray500);font-size:14px;">11</td>
             <td><strong>Merlin Labs</strong></td>
             <td>Independent</td>
-            <td>梅林实验室｜独立团队</td>
+            <td data-i18n="lb-11-affil">梅林实验室｜独立团队</td>
           </tr>
           <!-- 12 -->
           <tr style="background:#FAFCFF;">
             <td style="text-align:center;font-weight:700;color:var(--gray500);font-size:14px;">12</td>
             <td><strong>LYQRobotics</strong></td>
             <td>Independent</td>
-            <td>独立团队</td>
+            <td data-i18n="lb-12-affil">独立团队</td>
           </tr>
           <!-- 13 -->
           <tr>
             <td style="text-align:center;font-weight:700;color:var(--gray500);font-size:14px;">13</td>
             <td><strong>ACT</strong></td>
             <td>Xiamen University</td>
-            <td>厦门大学</td>
+            <td data-i18n="lb-13-affil">厦门大学</td>
           </tr>
           <!-- 14 -->
           <tr style="background:#FAFCFF;">
             <td style="text-align:center;font-weight:700;color:var(--gray500);font-size:14px;">14</td>
             <td><strong>StarVLA</strong></td>
             <td>Independent</td>
-            <td>独立团队</td>
+            <td data-i18n="lb-14-affil">独立团队</td>
           </tr>
           <!-- 15 -->
           <tr>
             <td style="text-align:center;font-weight:700;color:var(--gray500);font-size:14px;">15</td>
             <td><strong>Cloud-Data</strong></td>
             <td>Cloud Data Technology Co Ltd</td>
-            <td>云数据科技有限公司</td>
+            <td data-i18n="lb-15-affil">云数据科技有限公司</td>
           </tr>
           <!-- 16 -->
           <tr style="background:#FAFCFF;">
             <td style="text-align:center;font-weight:700;color:var(--gray500);font-size:14px;">16</td>
             <td><strong>RobotSimArk</strong></td>
             <td>1</td>
-            <td>1</td>
+            <td data-i18n="lb-16-affil">1</td>
           </tr>
           <!-- 17 -->
           <tr>
             <td style="text-align:center;font-weight:700;color:var(--gray500);font-size:14px;">17</td>
             <td><strong>EntropyMaximum</strong></td>
             <td>Independent</td>
-            <td>独立团队</td>
+            <td data-i18n="lb-17-affil">独立团队</td>
           </tr>
           <!-- 18 MAGIKID 高亮 -->
           <tr class="rank-magikid">
             <td style="text-align:center;font-weight:800;color:#fff;font-size:15px;background:var(--red);border-radius:6px;width:36px;height:36px;display:inline-flex;align-items:center;justify-content:center;margin:2px auto;box-shadow:0 2px 8px rgba(220,38,38,0.35);">18</td>
             <td>
               <strong style="color:var(--red);font-size:16px;">Magikid</strong>
-              <span class="magikid-badge" style="margin-left:8px;">🏅 唯一 K-12</span>
+              <span class="magikid-badge" style="margin-left:8px;" data-i18n="magikid-badge">🏅 唯一 K-12</span>
             </td>
             <td><strong>Magikid</strong></td>
-            <td><strong>魔力小孩</strong></td>
+            <td data-i18n="lb-18-affil"><strong>魔力小孩</strong></td>
           </tr>
         </tbody>
       </table>
     </div>
-    <p style="font-size:12.5px;color:var(--gray400);margin-top:14px;">
+    <p style="font-size:12.5px;color:var(--gray400);margin-top:14px;" data-i18n="lb-source">
       数据来源：<a href="https://behavior.stanford.edu/challenge/leaderboard.html" target="_blank" style="color:var(--accent);">behavior.stanford.edu/challenge/leaderboard.html</a> · Provisional 2025 Challenge Leaderboard
     </p>
   </div>
@@ -832,35 +863,35 @@
   <div class="container">
     <div class="magikid-highlight">
       <div class="mh-left">
-        <h2>MAGIKID ·<br><em>排行榜上唯一的 K-12 教育机构</em></h2>
-        <p>
+        <h2 data-i18n="mh-title">MAGIKID ·<br><em>排行榜上唯一的 K-12 教育机构</em></h2>
+        <p data-i18n="mh-p">
           在全球首个以真实人类需求为核心的具身智能挑战赛中，MAGIKID 学生团队与 NVIDIA、华为、斯坦福等机构的专业研究团队同场竞技，
           成功完成提交并进入全球榜单，成为榜单上唯一代表 K-12 教育的机构。
         </p>
         <div class="mh-stats">
           <div class="mh-stat">
             <div class="n">18</div>
-            <div class="l">全球排名</div>
+            <div class="l" data-i18n="mh-stat-1-label">全球排名</div>
           </div>
           <div class="mh-stat">
             <div class="n">18</div>
-            <div class="l">参赛队伍总数</div>
+            <div class="l" data-i18n="mh-stat-2-label">参赛队伍总数</div>
           </div>
           <div class="mh-stat">
             <div class="n">4</div>
-            <div class="l">参赛国家</div>
+            <div class="l" data-i18n="mh-stat-3-label">参赛国家</div>
           </div>
           <div class="mh-stat">
             <div class="n">1</div>
-            <div class="l">榜单上唯一 K-12</div>
+            <div class="l" data-i18n="mh-stat-4-label">榜单上唯一 K-12</div>
           </div>
         </div>
       </div>
       <div class="mh-right">
         <div class="big-rank">TOP<br>18</div>
-        <div class="rank-label">2025 BEHAVIOR Challenge · 全球排名</div>
-        <span class="tag">唯一 K-12 教育机构</span>
-        <div class="note">与 NVIDIA · 华为 · Stanford · CMU 同台</div>
+        <div class="rank-label" data-i18n="mh-rank-label">2025 BEHAVIOR Challenge · 全球排名</div>
+        <span class="tag" data-i18n="mh-tag">唯一 K-12 教育机构</span>
+        <div class="note" data-i18n="mh-note">与 NVIDIA · 华为 · Stanford · CMU 同台</div>
       </div>
     </div>
   </div>
@@ -869,25 +900,25 @@
 <!-- ═══════════════════════════ 奖项设置 ═══════════════════════════ -->
 <section style="background:var(--gray100);">
   <div class="container">
-    <div class="section-tag">奖项设置</div>
-    <h2 class="section-title">每个赛道 · <em>Top 3 奖项</em></h2>
+    <div class="section-tag" data-i18n="sec-prize">奖项设置</div>
+    <h2 class="section-title" data-i18n="prize-title">每个赛道 · <em>Top 3 奖项</em></h2>
     <div class="divider"></div>
     <div class="prize-grid">
       <div class="prize-card gold-card">
         <div class="prize-medal">🥇</div>
-        <h3>第一名</h3>
+        <h3 data-i18n="prize-1-label">第一名</h3>
         <div class="prize-amount">$1,000</div>
         <div class="prize-extra">+ GeForce RTX 5080 显卡</div>
       </div>
       <div class="prize-card silver-card">
         <div class="prize-medal">🥈</div>
-        <h3>第二名</h3>
+        <h3 data-i18n="prize-2-label">第二名</h3>
         <div class="prize-amount">$500</div>
         <div class="prize-extra">+ Jetson Orin Nano Super 或 $1,000 Brev 积分</div>
       </div>
       <div class="prize-card bronze-card">
         <div class="prize-medal">🥉</div>
-        <h3>第三名</h3>
+        <h3 data-i18n="prize-3-label">第三名</h3>
         <div class="prize-amount">$300</div>
         <div class="prize-extra">+ $500 Brev 积分</div>
       </div>
@@ -898,30 +929,30 @@
 <!-- ═══════════════════════════ CURRICULUM ═══════════════════════════ -->
 <section id="curriculum" style="background:var(--gray50);">
   <div class="container">
-    <div class="section-tag">MAGIKID Robotics Program</div>
-    <h2 class="section-title">From Robot Hand to <em>Super-Humanoid</em></h2>
+    <div class="section-tag" data-i18n="curr-tag">MAGIKID Robotics Program</div>
+    <h2 class="section-title" data-i18n="curr-title">From Robot Hand to <em>Super-Humanoid</em></h2>
     <div class="divider"></div>
-    <p class="section-desc">
+    <p class="section-desc" data-i18n="curr-desc">
       A 10-month structured curriculum bridging mechanical design, motion control, and AI — guiding students from building their first robotic gripper all the way to programming a full humanoid robot.
     </p>
 
     <!-- Program Stats -->
     <div class="stat-row" style="margin-bottom:56px;">
       <div class="stat-item">
-        <div class="num">10</div><div class="unit" style="font-size:14px;font-weight:700;color:var(--accent);">Months</div>
-        <div class="label">Full Program Duration</div>
+        <div class="num">10</div><div class="unit" data-i18n="curr-months" style="font-size:14px;font-weight:700;color:var(--accent);">Months</div>
+        <div class="label" data-i18n="curr-months-sub">Full Program Duration</div>
       </div>
       <div class="stat-item">
-        <div class="num">5</div><div class="unit" style="font-size:14px;font-weight:700;color:var(--accent);">Levels</div>
-        <div class="label">Progressive Skill Tracks</div>
+        <div class="num">5</div><div class="unit" data-i18n="curr-levels" style="font-size:14px;font-weight:700;color:var(--accent);">Levels</div>
+        <div class="label" data-i18n="curr-levels-sub">Progressive Skill Tracks</div>
       </div>
       <div class="stat-item">
-        <div class="num">40</div><div class="unit" style="font-size:14px;font-weight:700;color:var(--accent);">Lessons</div>
-        <div class="label">8 Lessons per Level</div>
+        <div class="num">40</div><div class="unit" data-i18n="curr-lessons" style="font-size:14px;font-weight:700;color:var(--accent);">Lessons</div>
+        <div class="label" data-i18n="curr-lessons-sub">8 Lessons per Level</div>
       </div>
       <div class="stat-item">
-        <div class="num">1×</div><div class="unit" style="font-size:14px;font-weight:700;color:var(--accent);">Week</div>
-        <div class="label">One Session per Week</div>
+        <div class="num">1×</div><div class="unit" data-i18n="curr-week" style="font-size:14px;font-weight:700;color:var(--accent);">Week</div>
+        <div class="label" data-i18n="curr-week-sub">One Session per Week</div>
       </div>
     </div>
 
@@ -932,107 +963,107 @@
       <div class="curr-card">
         <div class="curr-level-badge" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);">LV 01</div>
         <div class="curr-icon">🤖</div>
-        <div class="curr-meta">Weeks 1 – 8 &nbsp;·&nbsp; 2 Months</div>
-        <h3 class="curr-title">Robot Hand</h3>
-        <p class="curr-desc">Understand degrees of freedom, joint mechanics, and how a robotic gripper grasps and manipulates objects.</p>
+        <div class="curr-meta" data-i18n="curr-l1-meta">Weeks 1 – 8 &nbsp;·&nbsp; 2 Months</div>
+        <h3 class="curr-title" data-i18n="curr-l1-title">Robot Hand</h3>
+        <p class="curr-desc" data-i18n="curr-l1-desc">Understand degrees of freedom, joint mechanics, and how a robotic gripper grasps and manipulates objects.</p>
         <ul class="curr-lessons">
-          <li>Introduction to DOF &amp; gripper anatomy</li>
-          <li>Servo motors &amp; actuation basics</li>
-          <li>3D-printed finger design</li>
-          <li>Tendon-driven vs rigid-link mechanisms</li>
-          <li>Force &amp; pressure sensing</li>
-          <li>Pick-and-place programming</li>
-          <li>Grasp planning fundamentals</li>
-          <li>Capstone: autonomous grasping demo</li>
+          <li data-i18n="curr-l1-1">Introduction to DOF &amp; gripper anatomy</li>
+          <li data-i18n="curr-l1-2">Servo motors &amp; actuation basics</li>
+          <li data-i18n="curr-l1-3">3D-printed finger design</li>
+          <li data-i18n="curr-l1-4">Tendon-driven vs rigid-link mechanisms</li>
+          <li data-i18n="curr-l1-5">Force &amp; pressure sensing</li>
+          <li data-i18n="curr-l1-6">Pick-and-place programming</li>
+          <li data-i18n="curr-l1-7">Grasp planning fundamentals</li>
+          <li data-i18n="curr-l1-8">Capstone: autonomous grasping demo</li>
         </ul>
-        <div class="curr-milestone">🎯 Milestone: Build &amp; program a 3-DOF robotic gripper</div>
+        <div class="curr-milestone" data-i18n="curr-l1-milestone">🎯 Milestone: Build &amp; program a 3-DOF robotic gripper</div>
       </div>
 
       <!-- LEVEL 2 -->
       <div class="curr-card">
         <div class="curr-level-badge" style="background:linear-gradient(135deg,#8b5cf6,#6d28d9);">LV 02</div>
         <div class="curr-icon">🦾</div>
-        <div class="curr-meta">Weeks 9 – 16 &nbsp;·&nbsp; 2 Months</div>
-        <h3 class="curr-title">Robot Arm</h3>
-        <p class="curr-desc">Design and control a multi-joint robotic arm. Learn kinematics, trajectory planning, and real-time feedback control.</p>
+        <div class="curr-meta" data-i18n="curr-l2-meta">Weeks 9 – 16 &nbsp;·&nbsp; 2 Months</div>
+        <h3 class="curr-title" data-i18n="curr-l2-title">Robot Arm</h3>
+        <p class="curr-desc" data-i18n="curr-l2-desc">Design and control a multi-joint robotic arm. Learn kinematics, trajectory planning, and real-time feedback control.</p>
         <ul class="curr-lessons">
-          <li>Forward &amp; inverse kinematics</li>
-          <li>Jacobian matrix &amp; workspace analysis</li>
-          <li>PID control for joint angles</li>
-          <li>ROS 2 introduction &amp; URDF modeling</li>
-          <li>Trajectory planning &amp; interpolation</li>
-          <li>Vision-guided arm control</li>
-          <li>Collision avoidance strategies</li>
-          <li>Capstone: arm picks objects via camera</li>
+          <li data-i18n="curr-l2-1">Forward &amp; inverse kinematics</li>
+          <li data-i18n="curr-l2-2">Jacobian matrix &amp; workspace analysis</li>
+          <li data-i18n="curr-l2-3">PID control for joint angles</li>
+          <li data-i18n="curr-l2-4">ROS 2 introduction &amp; URDF modeling</li>
+          <li data-i18n="curr-l2-5">Trajectory planning &amp; interpolation</li>
+          <li data-i18n="curr-l2-6">Vision-guided arm control</li>
+          <li data-i18n="curr-l2-7">Collision avoidance strategies</li>
+          <li data-i18n="curr-l2-8">Capstone: arm picks objects via camera</li>
         </ul>
-        <div class="curr-milestone">🎯 Milestone: 6-DOF arm controlled by vision pipeline</div>
+        <div class="curr-milestone" data-i18n="curr-l2-milestone">🎯 Milestone: 6-DOF arm controlled by vision pipeline</div>
       </div>
 
       <!-- LEVEL 3 -->
       <div class="curr-card">
         <div class="curr-level-badge" style="background:linear-gradient(135deg,#06b6d4,#0284c7);">LV 03</div>
         <div class="curr-icon">🧠</div>
-        <div class="curr-meta">Weeks 17 – 24 &nbsp;·&nbsp; 2 Months</div>
-        <h3 class="curr-title">Motion Simulation</h3>
-        <p class="curr-desc">Simulate full-body robot motion in physics engines. Train motion policies using reinforcement learning on MuJoCo &amp; Isaac Sim.</p>
+        <div class="curr-meta" data-i18n="curr-l3-meta">Weeks 17 – 24 &nbsp;·&nbsp; 2 Months</div>
+        <h3 class="curr-title" data-i18n="curr-l3-title">Motion Simulation</h3>
+        <p class="curr-desc" data-i18n="curr-l3-desc">Simulate full-body robot motion in physics engines. Train motion policies using reinforcement learning on MuJoCo &amp; Isaac Sim.</p>
         <ul class="curr-lessons">
-          <li>Physics simulation principles (MuJoCo)</li>
-          <li>Robot model import &amp; scene setup</li>
-          <li>Reinforcement learning basics (PPO/SAC)</li>
-          <li>Reward function design</li>
-          <li>Sim-to-real transfer concepts</li>
-          <li>Motion capture data &amp; retargeting</li>
-          <li>Whole-body motion optimization</li>
-          <li>Capstone: train a walking gait policy</li>
+          <li data-i18n="curr-l3-1">Physics simulation principles (MuJoCo)</li>
+          <li data-i18n="curr-l3-2">Robot model import &amp; scene setup</li>
+          <li data-i18n="curr-l3-3">Reinforcement learning basics (PPO/SAC)</li>
+          <li data-i18n="curr-l3-4">Reward function design</li>
+          <li data-i18n="curr-l3-5">Sim-to-real transfer concepts</li>
+          <li data-i18n="curr-l3-6">Motion capture data &amp; retargeting</li>
+          <li data-i18n="curr-l3-7">Whole-body motion optimization</li>
+          <li data-i18n="curr-l3-8">Capstone: train a walking gait policy</li>
         </ul>
-        <div class="curr-milestone">🎯 Milestone: Trained locomotion policy in simulation</div>
+        <div class="curr-milestone" data-i18n="curr-l3-milestone">🎯 Milestone: Trained locomotion policy in simulation</div>
       </div>
 
       <!-- LEVEL 4 -->
       <div class="curr-card">
         <div class="curr-level-badge" style="background:linear-gradient(135deg,#f59e0b,#d97706);">LV 04</div>
         <div class="curr-icon">🚶</div>
-        <div class="curr-meta">Weeks 25 – 32 &nbsp;·&nbsp; 2 Months</div>
-        <h3 class="curr-title">Humanoid Robot</h3>
-        <p class="curr-desc">Integrate everything into a full humanoid platform. Program whole-body control, task execution, and human–robot interaction.</p>
+        <div class="curr-meta" data-i18n="curr-l4-meta">Weeks 25 – 32 &nbsp;·&nbsp; 2 Months</div>
+        <h3 class="curr-title" data-i18n="curr-l4-title">Humanoid Robot</h3>
+        <p class="curr-desc" data-i18n="curr-l4-desc">Integrate everything into a full humanoid platform. Program whole-body control, task execution, and human–robot interaction.</p>
         <ul class="curr-lessons">
-          <li>Humanoid hardware overview (Unitree, H1)</li>
-          <li>Whole-body control (WBC) framework</li>
-          <li>Balance &amp; bipedal locomotion</li>
-          <li>Loco-manipulation: walk + grasp</li>
-          <li>SLAM &amp; navigation on humanoids</li>
-          <li>Language-instruction interfaces (LLM→action)</li>
-          <li>Safety &amp; emergency stop systems</li>
-          <li>Capstone: humanoid completes a household task</li>
+          <li data-i18n="curr-l4-1">Humanoid hardware overview (Unitree, H1)</li>
+          <li data-i18n="curr-l4-2">Whole-body control (WBC) framework</li>
+          <li data-i18n="curr-l4-3">Balance &amp; bipedal locomotion</li>
+          <li data-i18n="curr-l4-4">Loco-manipulation: walk + grasp</li>
+          <li data-i18n="curr-l4-5">SLAM &amp; navigation on humanoids</li>
+          <li data-i18n="curr-l4-6">Language-instruction interfaces (LLM→action)</li>
+          <li data-i18n="curr-l4-7">Safety &amp; emergency stop systems</li>
+          <li data-i18n="curr-l4-8">Capstone: humanoid completes a household task</li>
         </ul>
-        <div class="curr-milestone">🎯 Milestone: Humanoid autonomously navigates &amp; picks an object</div>
+        <div class="curr-milestone" data-i18n="curr-l4-milestone">🎯 Milestone: Humanoid autonomously navigates &amp; picks an object</div>
       </div>
 
       <!-- LEVEL 5 -->
       <div class="curr-card curr-card-super">
         <div class="curr-level-badge" style="background:linear-gradient(135deg,#e63946,#c0392b);">LV 05</div>
         <div class="curr-icon">✨</div>
-        <div class="curr-meta">Weeks 33 – 40 &nbsp;·&nbsp; 2 Months</div>
-        <h3 class="curr-title">Super-Humanoid</h3>
-        <p class="curr-desc">Push the frontier. Design AI systems that let humanoid robots learn, adapt, and collaborate on tasks never seen before — the BEHAVIOR-1K challenge level.</p>
+        <div class="curr-meta" data-i18n="curr-l5-meta">Weeks 33 – 40 &nbsp;·&nbsp; 2 Months</div>
+        <h3 class="curr-title" data-i18n="curr-l5-title">Super-Humanoid</h3>
+        <p class="curr-desc" data-i18n="curr-l5-desc">Push the frontier. Design AI systems that let humanoid robots learn, adapt, and collaborate on tasks never seen before — the BEHAVIOR-1K challenge level.</p>
         <ul class="curr-lessons">
-          <li>Foundation models for robotics (VLA)</li>
-          <li>BEHAVIOR-1K task framework &amp; benchmark</li>
-          <li>Multi-modal perception (vision + language + touch)</li>
-          <li>Online learning &amp; few-shot adaptation</li>
-          <li>Multi-agent &amp; human-robot collaboration</li>
-          <li>Ethics, safety, and responsible AI in robotics</li>
-          <li>Stanford BEHAVIOR challenge strategy &amp; submission</li>
-          <li>Final Demo Day: real or simulated challenge task</li>
+          <li data-i18n="curr-l5-1">Foundation models for robotics (VLA)</li>
+          <li data-i18n="curr-l5-2">BEHAVIOR-1K task framework &amp; benchmark</li>
+          <li data-i18n="curr-l5-3">Multi-modal perception (vision + language + touch)</li>
+          <li data-i18n="curr-l5-4">Online learning &amp; few-shot adaptation</li>
+          <li data-i18n="curr-l5-5">Multi-agent &amp; human-robot collaboration</li>
+          <li data-i18n="curr-l5-6">Ethics, safety, and responsible AI in robotics</li>
+          <li data-i18n="curr-l5-7">Stanford BEHAVIOR challenge strategy &amp; submission</li>
+          <li data-i18n="curr-l5-8">Final Demo Day: real or simulated challenge task</li>
         </ul>
-        <div class="curr-milestone">🏆 Final Milestone: Submit to Stanford BEHAVIOR Challenge</div>
+        <div class="curr-milestone" data-i18n="curr-l5-milestone">🏆 Final Milestone: Submit to Stanford BEHAVIOR Challenge</div>
       </div>
 
     </div><!-- /curr-grid -->
 
     <!-- Program Timeline bar -->
     <div class="curr-timeline">
-      <div class="curr-tl-label">Program Roadmap — 40 Weeks</div>
+      <div class="curr-tl-label" data-i18n="curr-tl-label">Program Roadmap — 40 Weeks</div>
       <div class="curr-tl-bar">
         <div class="curr-tl-seg" style="background:#3b82f6;width:20%;">LV 01<br><small>Wk 1–8</small></div>
         <div class="curr-tl-seg" style="background:#8b5cf6;width:20%;">LV 02<br><small>Wk 9–16</small></div>
@@ -1041,18 +1072,18 @@
         <div class="curr-tl-seg" style="background:#e63946;width:20%;">LV 05<br><small>Wk 33–40</small></div>
       </div>
       <div class="curr-tl-labels">
-        <span>Robot Hand</span>
-        <span>Robot Arm</span>
-        <span>Motion Sim</span>
-        <span>Humanoid</span>
-        <span>Super-Humanoid</span>
+        <span data-i18n="curr-tl-l0">Robot Hand</span>
+        <span data-i18n="curr-tl-l1">Robot Arm</span>
+        <span data-i18n="curr-tl-l2">Motion Sim</span>
+        <span data-i18n="curr-tl-l3">Humanoid</span>
+        <span data-i18n="curr-tl-l4">Super-Humanoid</span>
       </div>
     </div>
 
     <!-- ── PROGRAM OUTCOMES ── -->
     <div style="margin-top:64px;">
-      <div class="section-tag" style="text-align:center;margin:0 auto 10px;">What You Earn</div>
-      <h2 class="section-title" style="text-align:center;font-size:28px;">Program Outcomes &amp; Benefits</h2>
+      <div class="section-tag" style="text-align:center;margin:0 auto 10px;" data-i18n="oc-tag">What You Earn</div>
+      <h2 class="section-title" style="text-align:center;font-size:28px;" data-i18n="oc-title-main">Program Outcomes &amp; Benefits</h2>
       <div class="divider" style="margin:16px auto 36px;"></div>
 
       <!-- 四大成果卡片 -->
@@ -1061,23 +1092,23 @@
         <!-- 证书 -->
         <div class="outcome-card oc-cert">
           <div class="oc-icon">🏅</div>
-          <h3 class="oc-title">Level Certificates</h3>
-          <p class="oc-desc">Earn an official MAGIKID certificate upon completing each of the 5 levels. The full-program graduate receives a <strong>Humanoid Robotics Engineer Certificate</strong> co-recognized by program advisors.</p>
+          <h3 class="oc-title" data-i18n="oc-cert-title">Level Certificates</h3>
+          <p class="oc-desc" data-i18n="oc-cert-desc">Earn an official MAGIKID certificate upon completing each of the 5 levels. The full-program graduate receives a <strong>Humanoid Robotics Engineer Certificate</strong> co-recognized by program advisors.</p>
           <div class="cert-levels">
-            <div class="cert-badge" style="background:#3b82f6;">LV 01<span>Robot Hand</span></div>
-            <div class="cert-badge" style="background:#8b5cf6;">LV 02<span>Robot Arm</span></div>
-            <div class="cert-badge" style="background:#06b6d4;">LV 03<span>Motion Sim</span></div>
-            <div class="cert-badge" style="background:#f59e0b;">LV 04<span>Humanoid</span></div>
-            <div class="cert-badge" style="background:#e63946;">LV 05<span>Super-Humanoid</span></div>
+            <div class="cert-badge" style="background:#3b82f6;">LV 01<span data-i18n="curr-tl-l0">Robot Hand</span></div>
+            <div class="cert-badge" style="background:#8b5cf6;">LV 02<span data-i18n="curr-tl-l1">Robot Arm</span></div>
+            <div class="cert-badge" style="background:#06b6d4;">LV 03<span data-i18n="curr-tl-l2">Motion Sim</span></div>
+            <div class="cert-badge" style="background:#f59e0b;">LV 04<span data-i18n="curr-tl-l3">Humanoid</span></div>
+            <div class="cert-badge" style="background:#e63946;">LV 05<span data-i18n="curr-tl-l4">Super-Humanoid</span></div>
           </div>
-          <div class="oc-note">📜 Each certificate includes project portfolio, lesson completion record, and advisor evaluation</div>
+          <div class="oc-note" data-i18n="oc-cert-note">📜 Each certificate includes project portfolio, lesson completion record, and advisor evaluation</div>
         </div>
 
         <!-- 专家辅导 -->
         <div class="outcome-card oc-mentor">
           <div class="oc-icon">👨‍🏫</div>
-          <h3 class="oc-title">Expert Mentorship</h3>
-          <p class="oc-desc">Every student is paired with a mentor from our network of researchers and practitioners at world-leading institutions and robotics companies.</p>
+          <h3 class="oc-title" data-i18n="oc-mentor-title">Expert Mentorship</h3>
+          <p class="oc-desc" data-i18n="oc-mentor-desc">Every student is paired with a mentor from our network of researchers and practitioners at world-leading institutions and robotics companies.</p>
           <ul class="oc-list">
             <li>
               <span class="oc-tag" style="background:#8B1A1A;color:#fff;">Stanford</span>
@@ -1092,14 +1123,14 @@
               NVIDIA Research · Unitree Robotics · Figure AI · Physical Intelligence (π)
             </li>
           </ul>
-          <div class="oc-note">🔗 Mentor office hours: bi-weekly 1-on-1 sessions (30 min each)</div>
+          <div class="oc-note" data-i18n="oc-mentor-note">🔗 Mentor office hours: bi-weekly 1-on-1 sessions (30 min each)</div>
         </div>
 
         <!-- 学术研究平台 -->
         <div class="outcome-card oc-research">
           <div class="oc-icon">🔬</div>
-          <h3 class="oc-title">Academic Research Access</h3>
-          <p class="oc-desc">Students get access to curated research resources and discussion platforms used by Stanford and Berkeley robotics communities.</p>
+          <h3 class="oc-title" data-i18n="oc-research-title">Academic Research Access</h3>
+          <p class="oc-desc" data-i18n="oc-research-desc">Students get access to curated research resources and discussion platforms used by Stanford and Berkeley robotics communities.</p>
           <ul class="oc-list">
             <li>
               <span class="oc-tag" style="background:#8B1A1A;color:#fff;">Stanford</span>
@@ -1114,29 +1145,29 @@
               IEEE RAS Student Forums · CoRL Student Workshop · Hugging Face Robotics Community
             </li>
           </ul>
-          <div class="oc-note">📚 Pre-read list, paper digests, and weekly research recaps provided throughout the program</div>
+          <div class="oc-note" data-i18n="oc-research-note">📚 Pre-read list, paper digests, and weekly research recaps provided throughout the program</div>
         </div>
 
         <!-- 论文 + 实习 -->
         <div class="outcome-card oc-career">
           <div class="oc-icon">🚀</div>
-          <h3 class="oc-title">Publication &amp; Internship</h3>
-          <p class="oc-desc">Top-performing students have direct pathways to research publication and industry experience.</p>
+          <h3 class="oc-title" data-i18n="oc-career-title">Publication &amp; Internship</h3>
+          <p class="oc-desc" data-i18n="oc-career-desc">Top-performing students have direct pathways to research publication and industry experience.</p>
           <div class="career-item">
             <div class="career-icon">📄</div>
             <div>
-              <div class="career-label">Research Publication</div>
-              <div class="career-text">Students with outstanding project outcomes can co-author and submit papers to robotics venues (CoRL, ICRA, IROS, IEEE RA-L) with guidance from their MAGIKID-affiliated mentor. All eligible projects receive formal research review before submission.</div>
+              <div class="career-label" data-i18n="oc-career-label-1">Research Publication</div>
+              <div class="career-text" data-i18n="oc-career-text-1">Students with outstanding project outcomes can co-author and submit papers to robotics venues (CoRL, ICRA, IROS, IEEE RA-L) with guidance from their MAGIKID-affiliated mentor. All eligible projects receive formal research review before submission.</div>
             </div>
           </div>
           <div class="career-item" style="margin-top:16px;">
             <div class="career-icon">🏢</div>
             <div>
-              <div class="career-label">Robotics Internship Opportunities</div>
-              <div class="career-text">Graduates who complete LV 04–05 are eligible to apply for internal internship positions at our partner robotics companies — including hardware, software, and AI research roles for pre-college students.</div>
+              <div class="career-label" data-i18n="oc-career-label-2">Robotics Internship Opportunities</div>
+              <div class="career-text" data-i18n="oc-career-text-2">Graduates who complete LV 04–05 are eligible to apply for internal internship positions at our partner robotics companies — including hardware, software, and AI research roles for pre-college students.</div>
             </div>
           </div>
-          <div class="oc-note">🌟 Partners include startups and labs actively hiring pre-college robotics talent</div>
+          <div class="oc-note" data-i18n="oc-career-note">🌟 Partners include startups and labs actively hiring pre-college robotics talent</div>
         </div>
 
       </div><!-- /outcomes-grid -->
@@ -1146,9 +1177,11 @@
       <a href="https://magikidlab.com" target="_blank"
         style="display:inline-block;padding:14px 48px;background:var(--blue);color:#fff;border-radius:999px;font-weight:700;font-size:15px;text-decoration:none;box-shadow:var(--shadow-md);transition:transform .2s,box-shadow .2s;"
         onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 10px 32px rgba(29,53,87,.35)'"
-        onmouseout="this.style.transform='';this.style.boxShadow='var(--shadow-md)'">
+        onmouseout="this.style.transform='';this.style.boxShadow='var(--shadow-md)'"
+        data-i18n="curr-cta">
         Apply for the Program →
       </a>
+      </span>
     </p>
 
   </div>
@@ -1156,9 +1189,420 @@
 
 <!-- ═══════════════════════════ FOOTER ═══════════════════════════ -->
 <footer>
-  <strong>MAGIKID AI &amp; Robotics</strong> · 数据来源：Stanford BEHAVIOR 官方排行榜 &amp; 挑战赛页面 ·
+  <strong>MAGIKID AI &amp; Robotics</strong> · <span data-i18n="footer">数据来源：Stanford BEHAVIOR 官方排行榜 &amp; 挑战赛页面</span> ·
   <a href="https://behavior.stanford.edu" target="_blank" style="color:rgba(255,255,255,.5);">behavior.stanford.edu</a>
 </footer>
+
+<script>
+(function(){
+  const zh = {
+    'hero-eyebrow': '🏆 深度分析报告',
+    'hero-title': 'Stanford <em>BEHAVIOR</em><br>人形机器人挑战赛',
+    'hero-sub': '全球首个以真实人类需求为核心的具身智能基准 · 2025 年 NeurIPS 官方赛道',
+    'achieve-title': '<h2>🎉 MAGIKID 全球第 18 名</h2>',
+    'achieve-p': '<p>在 2025 BEHAVIOR 挑战赛中，<strong>MAGIKID 是排行榜上唯一的 K-12 教育机构</strong>，<br>与 NVIDIA、华为等科技巨头及斯坦福、CMU 等顶尖高校实验室同台竞技。</p>',
+    'sec-bg': '比赛背景',
+    'sec-team': '核心团队',
+    'sec-mode': '比赛模式',
+    'sec-prize': '奖项设置',
+    'sec-lb': '获奖情况',
+    'sec-curriculum': 'MAGIKID 机器人课程体系',
+    'sec-outcomes-tag': '课程成果',
+    'sec-outcomes-title': '课程成果与权益',
+    'bg-title': 'BEHAVIOR-1K —— 具身智能的<em>现实考场</em>',
+    'bg-desc': '由斯坦福大学发起，基于大规模社会调查——询问真实用户「希望机器人帮你做什么」，从答案中提炼出 1,000 项家庭活动，构建出迄今最贴近现实人类需求的机器人基准测试。',
+    'bg-stat-1-label': '家庭活动任务',
+    'bg-stat-2-label': '完整可交互场景',
+    'bg-stat-3-label': '场景中的物体',
+    'bg-stat-4-label': '遥操作专家演示数据',
+    'bg-card-1-title': '以人类需求为驱动',
+    'bg-card-1-p': '基于广泛的社会调查收集"你希望机器人帮你做什么"，确保任务与真实生活高度贴合，而非实验室场景。',
+    'bg-card-2-title': 'OmniGibson 仿真平台',
+    'bg-card-2-p': '基于 NVIDIA Isaac Sim，支持流体、柔性物体、透明物体、热效应等高真实度物理模拟，远超传统仿真器。',
+    'bg-card-3-title': '长周期移动操作',
+    'bg-card-3-p': '任务覆盖整理、烹饪、清洁、安装等复杂连续步骤，测试机器人在家庭规模场景中的高级推理与操控能力。',
+    'bg-card-4-title': 'NeurIPS 官方赛道',
+    'bg-card-4-p': '2025 年挑战赛于 NeurIPS（全球顶级 AI 学术会议）发布，吸引来自 4 个国家、学术与工业界共 18 支团队提交。',
+    'team-title': '斯坦福大学 <em>BEHAVIOR</em> 团队',
+    'team-desc': '由斯坦福大学 AI Lab 主导，汇聚计算机视觉、机器人操控、具身智能等领域顶尖研究者。',
+    'mode-title': '两条赛道 · <em>评分体系</em>',
+    'mode-desc': '参赛队伍提交机器人策略代码，在 OmniGibson 仿真器中执行 50 项家庭任务，以 Q-Score 为主排名指标，允许部分完成得分。',
+    'track-std-title': '🔵 Standard Track · 标准赛道',
+    'track-std-1': '仅使用机载传感器观测（RGB + 深度）',
+    'track-std-2': '实例分割 + 本体感知数据',
+    'track-std-3': '不可访问模拟器内部状态',
+    'track-std-4': '最贴近真实机器人部署条件',
+    'track-std-5': 'MAGIKID 参赛赛道',
+    'track-priv-title': '🟡 Privileged Track · 特权赛道',
+    'track-priv-1': '可访问模拟器任意内部信息',
+    'track-priv-2': '包括物体精确位姿、场景点云等',
+    'track-priv-3': '适合算法研究与上界探索',
+    'track-priv-4': '独立排名，不与标准赛道竞争',
+    'scoring-title': '📊 Q-Score 评分机制',
+    'scoring-left': 'Q-Score 通过计算已完成的<strong>子目标比例</strong>来评估策略表现，并选择最佳匹配的目标条款进行评分。即使任务未完全完成，只要取得有意义的阶段进展，即可获得部分分数，比二元成功率更平滑可靠。',
+    'scoring-right-title': '<strong>辅助指标（效率维度）：</strong>',
+    'scoring-right': '· 模拟时间消耗<br>· 导航总距离<br>· 手部位移量<br>· 50 项任务平均任务成功率',
+    'timeline-title': '⏱ 2025 赛季关键时间线',
+    'tl-1-label': '挑战启动',
+    'tl-2-label': '提交截止',
+    'tl-3-label': '排行榜公开',
+    'tl-4-label': '获奖颁布 · NeurIPS',
+    'lb-title': '2025 全球<em>排行榜</em>（Provisional）',
+    'lb-desc': '来自 4 个国家共 18 支团队提交参赛，参与者涵盖科技巨头、顶尖高校实验室与独立研究团队。',
+    'lb-th-team': '团队 / Team',
+    'lb-th-org': '机构 / Organization',
+    'lb-th-affil': '所属 / Affiliation',
+    'lb-source': '数据来源：<a href="https://behavior.stanford.edu/challenge/leaderboard.html" target="_blank" style="color:var(--accent);">behavior.stanford.edu/challenge/leaderboard.html</a> · Provisional 2025 Challenge Leaderboard',
+    'magikid-badge': '🏅 唯一 K-12',
+    'mh-title': 'MAGIKID ·<br><em>排行榜上唯一的 K-12 教育机构</em>',
+    'mh-p': '在全球首个以真实人类需求为核心的具身智能挑战赛中，MAGIKID 学生团队与 NVIDIA、华为、斯坦福等机构的专业研究团队同场竞技，成功完成提交并进入全球榜单，成为榜单上唯一代表 K-12 教育的机构。',
+    'mh-stat-1-label': '全球排名',
+    'mh-stat-2-label': '参赛队伍总数',
+    'mh-stat-3-label': '参赛国家',
+    'mh-stat-4-label': '榜单上唯一 K-12',
+    'mh-rank-label': '2025 BEHAVIOR Challenge · 全球排名',
+    'mh-tag': '唯一 K-12 教育机构',
+    'mh-note': '与 NVIDIA · 华为 · Stanford · CMU 同台',
+    'prize-title': '每个赛道 · <em>Top 3 奖项</em>',
+    'prize-1-label': '第一名',
+    'prize-2-label': '第二名',
+    'prize-3-label': '第三名',
+    'lb-1-affil': '独立团队',
+    'lb-2-affil': 'NVIDIA 研究',
+    'lb-3-affil': '北京简单人工智能科技',
+    'lb-4-affil': '华为 CRI EAI 团队',
+    'lb-5-affil': '独立团队',
+    'lb-6-affil': '韩国光州科学技术院',
+    'lb-7-affil': 'Alzonova',
+    'lb-8-affil': 'MR',
+    'lb-9-affil': '卡内基梅隆大学',
+    'lb-10-affil': '浦项工科大学',
+    'lb-11-affil': '梅林实验室｜独立团队',
+    'lb-12-affil': '独立团队',
+    'lb-13-affil': '厦门大学',
+    'lb-14-affil': '独立团队',
+    'lb-15-affil': '云数据科技有限公司',
+    'lb-16-affil': '1',
+    'lb-17-affil': '独立团队',
+    'lb-18-affil': '魔力小孩',
+    'curr-tag': 'MAGIKID 机器人课程体系',
+    'curr-title': '从机器手到 <em>超级人形机器人</em>',
+    'curr-desc': '10个月系统课程，横跨机械设计、运动控制与人工智能——引导学生从搭建第一个机器人抓手到编程控制完整人形机器人。',
+    'curr-months': '月',
+    'curr-months-sub': '课程总时长',
+    'curr-levels': '等级',
+    'curr-levels-sub': '递进式技能轨道',
+    'curr-lessons': '课时',
+    'curr-lessons-sub': '每级 8 节课',
+    'curr-week': '每周',
+    'curr-week-sub': '每周一节课',
+    'curr-l1-meta': '第1–8周 · 2个月',
+    'curr-l2-meta': '第9–16周 · 2个月',
+    'curr-l3-meta': '第17–24周 · 2个月',
+    'curr-l4-meta': '第25–32周 · 2个月',
+    'curr-l5-meta': '第33–40周 · 2个月',
+    'curr-l1-title': '机器手',
+    'curr-l1-desc': '理解自由度、关节力学，以及机器人抓手如何抓取和操控物体。',
+    'curr-l1-1': '自由度与抓手解剖学导论',
+    'curr-l1-2': '舵机与驱动基础',
+    'curr-l1-3': '3D 打印手指设计',
+    'curr-l1-4': '肌腱驱动 vs 刚性连杆机构',
+    'curr-l1-5': '力与压力传感',
+    'curr-l1-6': '取放（Pick & Place）编程',
+    'curr-l1-7': '抓取规划基础',
+    'curr-l1-8': '结业项目：自主抓取演示',
+    'curr-l1-milestone': '🎯 里程碑：搭建并编程一个 3-DOF 机器人抓手',
+    'curr-l2-title': '机械臂',
+    'curr-l2-desc': '设计和控制多关节机械臂。学习运动学、轨迹规划和实时反馈控制。',
+    'curr-l2-1': '正运动学与逆运动学',
+    'curr-l2-2': '雅可比矩阵与工作空间分析',
+    'curr-l2-3': '关节角度 PID 控制',
+    'curr-l2-4': 'ROS 2 入门与 URDF 建模',
+    'curr-l2-5': '轨迹规划与插值',
+    'curr-l2-6': '视觉引导机械臂控制',
+    'curr-l2-7': '碰撞避免策略',
+    'curr-l2-8': '结业项目：通过摄像头引导机械臂抓取物体',
+    'curr-l2-milestone': '🎯 里程碑：视觉管线控制的 6-DOF 机械臂',
+    'curr-l3-title': '动作仿真',
+    'curr-l3-desc': '在物理引擎中仿真全身机器人运动，使用强化学习在 MuJoCo 和 Isaac Sim 上训练运动策略。',
+    'curr-l3-1': '物理仿真原理（MuJoCo）',
+    'curr-l3-2': '机器人模型导入与场景搭建',
+    'curr-l3-3': '强化学习基础（PPO/SAC）',
+    'curr-l3-4': '奖励函数设计',
+    'curr-l3-5': 'Sim-to-Real 迁移概念',
+    'curr-l3-6': '动作捕捉数据与重定向',
+    'curr-l3-7': '全身运动优化',
+    'curr-l3-8': '结业项目：训练行走步态策略',
+    'curr-l3-milestone': '🎯 里程碑：仿真中训练完成的运动策略',
+    'curr-l4-title': '人形机器人',
+    'curr-l4-desc': '将所有知识整合到完整人形机器人平台，编程实现全身控制、任务执行和人机交互。',
+    'curr-l4-1': '人形机器人硬件概览（宇树 H1 等）',
+    'curr-l4-2': '全身控制（WBC）框架',
+    'curr-l4-3': '平衡与双足行走',
+    'curr-l4-4': '移动操作：行走 + 抓取',
+    'curr-l4-5': '人形机器人 SLAM 与导航',
+    'curr-l4-6': '语言指令接口（LLM→动作）',
+    'curr-l4-7': '安全与紧急停止系统',
+    'curr-l4-8': '结业项目：人形机器人完成家庭任务',
+    'curr-l4-milestone': '🎯 里程碑：人形机器人自主导航并抓取物体',
+    'curr-l5-title': '超级人形机器人',
+    'curr-l5-desc': '突破前沿。设计 AI 系统让人形机器人学习、适应并协作完成从未见过的任务——BEHAVIOR-1K 挑战级别。',
+    'curr-l5-1': '机器人基础模型（VLA）',
+    'curr-l5-2': 'BEHAVIOR-1K 任务框架与基准测试',
+    'curr-l5-3': '多模态感知（视觉 + 语言 + 触觉）',
+    'curr-l5-4': '在线学习与少样本适应',
+    'curr-l5-5': '多智能体与人机协作',
+    'curr-l5-6': '机器人学中的伦理、安全与负责任 AI',
+    'curr-l5-7': 'Stanford BEHAVIOR 挑战赛策略与提交',
+    'curr-l5-8': '最终 Demo Day：真实或仿真挑战任务',
+    'curr-l5-milestone': '🏆 最终里程碑：向 Stanford BEHAVIOR Challenge 提交方案',
+    'curr-tl-label': '课程路线图 — 40 周',
+    'curr-tl-l0': '机器手',
+    'curr-tl-l1': '机械臂',
+    'curr-tl-l2': '动作仿真',
+    'curr-tl-l3': '人形机器人',
+    'curr-tl-l4': '超级人形机器人',
+    'oc-tag': '课程成果',
+    'oc-title-main': '学习成果与专属权益',
+    'oc-cert-title': '等级证书',
+    'oc-cert-desc': '每完成一个等级即获得 MAGIKID 官方证书。全课程结业获得 <strong>人形机器人工程师证书</strong>，由课程导师联合认证。',
+    'oc-cert-note': '📜 每份证书包含项目作品集、课时完成记录与导师评语',
+    'oc-mentor-title': '专家辅导',
+    'oc-mentor-desc': '每位学生配备一位来自世界顶尖机构与机器人公司的导师。',
+    'oc-mentor-note': '🔗 导师答疑时间：每两周一次 1对1 辅导（每次 30 分钟）',
+    'oc-research-title': '学术研究平台',
+    'oc-research-desc': '学生可访问斯坦福和伯克利实验室使用的精选研究资源与学术讨论平台。',
+    'oc-research-note': '📚 课程全程提供预读清单、论文精读与每周研究动态汇总',
+    'oc-career-title': '论文发表与实习',
+    'oc-career-desc': '表现突出的学生可获得研究发表和行业经验的直接通路。',
+    'oc-career-label-1': '研究论文发表',
+    'oc-career-text-1': '项目成果突出的学生可在导师辅导下联合署名投稿机器人学顶级会议（CoRL、ICRA、IROS、IEEE RA-L）。所有符合条件项目在投稿前均会接受正式研究评审。',
+    'oc-career-label-2': '机器人公司实习机会',
+    'oc-career-text-2': '完成 LV04–05 的结业生可申请合作机器人公司内部实习岗位——涵盖硬件、软件和 AI 研究方向，面向预科学生。',
+    'oc-career-note': '🌟 合作方包括积极招聘预科机器人人才的初创公司与实验室',
+    'curr-cta': '申请课程 →',
+    'footer': '数据来源：Stanford BEHAVIOR 官方排行榜 &amp; 挑战赛页面',
+    'hero-img-alt': 'BEHAVIOR - 人形机器人在厨房场景中执行任务'
+  };
+
+  const en = {
+    'hero-eyebrow': '🏆 In-Depth Analysis',
+    'hero-title': 'Stanford <em>BEHAVIOR</em><br>Humanoid Robot Challenge',
+    'hero-sub': 'The world\'s first embodied AI benchmark driven by real human needs · 2025 NeurIPS Official Track',
+    'achieve-title': '<h2>🎉 MAGIKID Ranked #18 Globally</h2>',
+    'achieve-p': '<p>In the 2025 BEHAVIOR Challenge, <strong>MAGIKID was the only K-12 education institution on the leaderboard</strong>,<br>competing alongside NVIDIA, Huawei, and top university labs like Stanford and CMU.</p>',
+    'sec-bg': 'Competition Background',
+    'sec-team': 'Core Team',
+    'sec-mode': 'Competition Format',
+    'sec-prize': 'Prizes',
+    'sec-lb': 'Leaderboard',
+    'sec-curriculum': 'MAGIKID Robotics Program',
+    'sec-outcomes-tag': 'What You Earn',
+    'sec-outcomes-title': 'Program Outcomes &amp; Benefits',
+    'bg-title': 'BEHAVIOR-1K — Embodied AI\'s <em>Real-World Proving Ground</em>',
+    'bg-desc': 'Initiated by Stanford University, based on a large-scale social survey asking real users "What would you want a robot to do for you?" — distilling answers into 1,000 household activities, creating the most realistic human-needs-driven robot benchmark to date.',
+    'bg-stat-1-label': 'Household Activity Tasks',
+    'bg-stat-2-label': 'Fully Interactive Scenes',
+    'bg-stat-3-label': 'Objects in Scenes',
+    'bg-stat-4-label': 'Teleoperation Expert Demo Data',
+    'bg-card-1-title': 'Human-Needs-Driven',
+    'bg-card-1-p': 'Built on a broad social survey asking "what would you want a robot to do for you," ensuring tasks are tightly aligned with real life — not just lab scenarios.',
+    'bg-card-2-title': 'OmniGibson Simulation',
+    'bg-card-2-p': 'Powered by NVIDIA Isaac Sim, supporting fluids, soft bodies, transparent objects, thermal effects — far beyond traditional simulators.',
+    'bg-card-3-title': 'Long-Horizon Mobile Manipulation',
+    'bg-card-3-p': 'Tasks cover tidying, cooking, cleaning, and assembly across complex sequential steps, testing high-level reasoning and manipulation in household-scale environments.',
+    'bg-card-4-title': 'NeurIPS Official Track',
+    'bg-card-4-p': 'The 2025 challenge launched at NeurIPS (top AI conference), attracting 18 teams from 4 countries spanning academia and industry.',
+    'team-title': 'Stanford <em>BEHAVIOR</em> Team',
+    'team-desc': 'Led by Stanford AI Lab, gathering top researchers in computer vision, robot manipulation, and embodied intelligence.',
+    'mode-title': 'Two Tracks · <em>Scoring System</em>',
+    'mode-desc': 'Teams submit robot policy code that executes 50 household tasks in OmniGibson. Q-Score is the primary ranking metric, allowing partial completion credit.',
+    'track-std-title': '🔵 Standard Track',
+    'track-std-1': 'Onboard sensor observations only (RGB + depth)',
+    'track-std-2': 'Instance segmentation + proprioception',
+    'track-std-3': 'No simulator internal state access',
+    'track-std-4': 'Closest to real-world robot deployment',
+    'track-std-5': 'MAGIKID\'s competition track',
+    'track-priv-title': '🟡 Privileged Track',
+    'track-priv-1': 'Full access to simulator internal info',
+    'track-priv-2': 'Including precise object poses, scene point clouds',
+    'track-priv-3': 'Ideal for algorithm research &amp; upper-bound exploration',
+    'track-priv-4': 'Separate ranking, not competing with Standard Track',
+    'scoring-title': '📊 Q-Score Mechanism',
+    'scoring-left': 'Q-Score evaluates policy performance by calculating the proportion of <strong>completed subgoals</strong>, selecting the best-matching goal clause. Even partial task completion earns credit when meaningful progress is made — smoother and more reliable than binary success rates.',
+    'scoring-right-title': '<strong>Auxiliary Metrics (Efficiency):</strong>',
+    'scoring-right': '· Simulated time consumption<br>· Total navigation distance<br>· Hand displacement<br>· Average success rate across 50 tasks',
+    'timeline-title': '⏱ 2025 Season Timeline',
+    'tl-1-label': 'Challenge Launch',
+    'tl-2-label': 'Submission Deadline',
+    'tl-3-label': 'Leaderboard Published',
+    'tl-4-label': 'Awards Announced · NeurIPS',
+    'lb-title': '2025 Global <em>Leaderboard</em> (Provisional)',
+    'lb-desc': '18 teams from 4 countries submitted entries, spanning tech giants, top university labs, and independent research teams.',
+    'lb-th-team': 'Team',
+    'lb-th-org': 'Organization',
+    'lb-th-affil': 'Affiliation',
+    'lb-source': 'Data source: <a href="https://behavior.stanford.edu/challenge/leaderboard.html" target="_blank" style="color:var(--accent);">behavior.stanford.edu/challenge/leaderboard.html</a> · Provisional 2025 Challenge Leaderboard',
+    'magikid-badge': '🏅 Only K-12',
+    'mh-title': 'MAGIKID ·<br><em>The Only K-12 Institution on the Leaderboard</em>',
+    'mh-p': 'In the world\'s first embodied intelligence challenge driven by real human needs, MAGIKID students competed alongside professional research teams from NVIDIA, Huawei, Stanford, and other institutions — successfully submitting entries and making the global leaderboard as the only K-12 representative.',
+    'mh-stat-1-label': 'Global Rank',
+    'mh-stat-2-label': 'Total Teams',
+    'mh-stat-3-label': 'Countries',
+    'mh-stat-4-label': 'Only K-12 on Board',
+    'mh-rank-label': '2025 BEHAVIOR Challenge · Global Ranking',
+    'mh-tag': 'Only K-12 Institution',
+    'mh-note': 'Alongside NVIDIA · Huawei · Stanford · CMU',
+    'prize-title': 'Per Track · <em>Top 3 Prizes</em>',
+    'prize-1-label': '1st Place',
+    'prize-2-label': '2nd Place',
+    'prize-3-label': '3rd Place',
+    'lb-1-affil': 'Independent',
+    'lb-2-affil': 'NVIDIA Research',
+    'lb-3-affil': 'Simple AI Technology',
+    'lb-4-affil': 'Huawei CRI EAI Team',
+    'lb-5-affil': 'Independent',
+    'lb-6-affil': 'GIST',
+    'lb-7-affil': 'Alzonova',
+    'lb-8-affil': 'MR',
+    'lb-9-affil': 'CMU',
+    'lb-10-affil': 'POSTECH',
+    'lb-11-affil': 'Merlin Labs | Independent',
+    'lb-12-affil': 'Independent',
+    'lb-13-affil': 'Xiamen University',
+    'lb-14-affil': 'Independent',
+    'lb-15-affil': 'Cloud Data Technology',
+    'lb-16-affil': '1',
+    'lb-17-affil': 'Independent',
+    'lb-18-affil': 'Magikid',
+    'curr-tag': 'MAGIKID Robotics Program',
+    'curr-title': 'From Robot Hand to <em>Super-Humanoid</em>',
+    'curr-desc': 'A 10-month structured curriculum bridging mechanical design, motion control, and AI — guiding students from building their first robotic gripper all the way to programming a full humanoid robot.',
+    'curr-months': 'Months',
+    'curr-months-sub': 'Full Program Duration',
+    'curr-levels': 'Levels',
+    'curr-levels-sub': 'Progressive Skill Tracks',
+    'curr-lessons': 'Lessons',
+    'curr-lessons-sub': '8 Lessons per Level',
+    'curr-week': 'Week',
+    'curr-week-sub': 'One Session per Week',
+    'curr-l1-meta': 'Weeks 1–8 · 2 Months',
+    'curr-l2-meta': 'Weeks 9–16 · 2 Months',
+    'curr-l3-meta': 'Weeks 17–24 · 2 Months',
+    'curr-l4-meta': 'Weeks 25–32 · 2 Months',
+    'curr-l5-meta': 'Weeks 33–40 · 2 Months',
+    'curr-l1-title': 'Robot Hand',
+    'curr-l1-desc': 'Understand degrees of freedom, joint mechanics, and how a robotic gripper grasps and manipulates objects.',
+    'curr-l1-1': 'Introduction to DOF &amp; gripper anatomy',
+    'curr-l1-2': 'Servo motors &amp; actuation basics',
+    'curr-l1-3': '3D-printed finger design',
+    'curr-l1-4': 'Tendon-driven vs rigid-link mechanisms',
+    'curr-l1-5': 'Force &amp; pressure sensing',
+    'curr-l1-6': 'Pick-and-place programming',
+    'curr-l1-7': 'Grasp planning fundamentals',
+    'curr-l1-8': 'Capstone: autonomous grasping demo',
+    'curr-l1-milestone': '🎯 Milestone: Build &amp; program a 3-DOF robotic gripper',
+    'curr-l2-title': 'Robot Arm',
+    'curr-l2-desc': 'Design and control a multi-joint robotic arm. Learn kinematics, trajectory planning, and real-time feedback control.',
+    'curr-l2-1': 'Forward &amp; inverse kinematics',
+    'curr-l2-2': 'Jacobian matrix &amp; workspace analysis',
+    'curr-l2-3': 'PID control for joint angles',
+    'curr-l2-4': 'ROS 2 introduction &amp; URDF modeling',
+    'curr-l2-5': 'Trajectory planning &amp; interpolation',
+    'curr-l2-6': 'Vision-guided arm control',
+    'curr-l2-7': 'Collision avoidance strategies',
+    'curr-l2-8': 'Capstone: arm picks objects via camera',
+    'curr-l2-milestone': '🎯 Milestone: 6-DOF arm controlled by vision pipeline',
+    'curr-l3-title': 'Motion Simulation',
+    'curr-l3-desc': 'Simulate full-body robot motion in physics engines. Train motion policies using reinforcement learning on MuJoCo &amp; Isaac Sim.',
+    'curr-l3-1': 'Physics simulation principles (MuJoCo)',
+    'curr-l3-2': 'Robot model import &amp; scene setup',
+    'curr-l3-3': 'Reinforcement learning basics (PPO/SAC)',
+    'curr-l3-4': 'Reward function design',
+    'curr-l3-5': 'Sim-to-real transfer concepts',
+    'curr-l3-6': 'Motion capture data &amp; retargeting',
+    'curr-l3-7': 'Whole-body motion optimization',
+    'curr-l3-8': 'Capstone: train a walking gait policy',
+    'curr-l3-milestone': '🎯 Milestone: Trained locomotion policy in simulation',
+    'curr-l4-title': 'Humanoid Robot',
+    'curr-l4-desc': 'Integrate everything into a full humanoid platform. Program whole-body control, task execution, and human–robot interaction.',
+    'curr-l4-1': 'Humanoid hardware overview (Unitree, H1)',
+    'curr-l4-2': 'Whole-body control (WBC) framework',
+    'curr-l4-3': 'Balance &amp; bipedal locomotion',
+    'curr-l4-4': 'Loco-manipulation: walk + grasp',
+    'curr-l4-5': 'SLAM &amp; navigation on humanoids',
+    'curr-l4-6': 'Language-instruction interfaces (LLM→action)',
+    'curr-l4-7': 'Safety &amp; emergency stop systems',
+    'curr-l4-8': 'Capstone: humanoid completes a household task',
+    'curr-l4-milestone': '🎯 Milestone: Humanoid autonomously navigates &amp; picks an object',
+    'curr-l5-title': 'Super-Humanoid',
+    'curr-l5-desc': 'Push the frontier. Design AI systems that let humanoid robots learn, adapt, and collaborate on tasks never seen before — the BEHAVIOR-1K challenge level.',
+    'curr-l5-1': 'Foundation models for robotics (VLA)',
+    'curr-l5-2': 'BEHAVIOR-1K task framework &amp; benchmark',
+    'curr-l5-3': 'Multi-modal perception (vision + language + touch)',
+    'curr-l5-4': 'Online learning &amp; few-shot adaptation',
+    'curr-l5-5': 'Multi-agent &amp; human-robot collaboration',
+    'curr-l5-6': 'Ethics, safety, and responsible AI in robotics',
+    'curr-l5-7': 'Stanford BEHAVIOR challenge strategy &amp; submission',
+    'curr-l5-8': 'Final Demo Day: real or simulated challenge task',
+    'curr-l5-milestone': '🏆 Final Milestone: Submit to Stanford BEHAVIOR Challenge',
+    'curr-tl-label': 'Program Roadmap — 40 Weeks',
+    'curr-tl-l0': 'Robot Hand',
+    'curr-tl-l1': 'Robot Arm',
+    'curr-tl-l2': 'Motion Sim',
+    'curr-tl-l3': 'Humanoid',
+    'curr-tl-l4': 'Super-Humanoid',
+    'oc-tag': 'What You Earn',
+    'oc-title-main': 'Program Outcomes &amp; Benefits',
+    'oc-cert-title': 'Level Certificates',
+    'oc-cert-desc': 'Earn an official MAGIKID certificate upon completing each of the 5 levels. The full-program graduate receives a <strong>Humanoid Robotics Engineer Certificate</strong> co-recognized by program advisors.',
+    'oc-cert-note': '📜 Each certificate includes project portfolio, lesson completion record, and advisor evaluation',
+    'oc-mentor-title': 'Expert Mentorship',
+    'oc-mentor-desc': 'Every student is paired with a mentor from our network of researchers and practitioners at world-leading institutions and robotics companies.',
+    'oc-mentor-note': '🔗 Mentor office hours: bi-weekly 1-on-1 sessions (30 min each)',
+    'oc-research-title': 'Academic Research Access',
+    'oc-research-desc': 'Students get access to curated research resources and discussion platforms used by Stanford and Berkeley robotics communities.',
+    'oc-research-note': '📚 Pre-read list, paper digests, and weekly research recaps provided throughout the program',
+    'oc-career-title': 'Publication &amp; Internship',
+    'oc-career-desc': 'Top-performing students have direct pathways to research publication and industry experience.',
+    'oc-career-label-1': 'Research Publication',
+    'oc-career-text-1': 'Students with outstanding project outcomes can co-author and submit papers to robotics venues (CoRL, ICRA, IROS, IEEE RA-L) with guidance from their MAGIKID-affiliated mentor. All eligible projects receive formal research review before submission.',
+    'oc-career-label-2': 'Robotics Internship Opportunities',
+    'oc-career-text-2': 'Graduates who complete LV 04–05 are eligible to apply for internal internship positions at our partner robotics companies — including hardware, software, and AI research roles for pre-college students.',
+    'oc-career-note': '🌟 Partners include startups and labs actively hiring pre-college robotics talent',
+    'curr-cta': 'Apply for the Program →',
+    'footer': 'Data source: Stanford BEHAVIOR Official Leaderboard &amp; Challenge Page',
+    'hero-img-alt': 'BEHAVIOR - Humanoid robot performing tasks in a kitchen scenario'
+  };
+
+  var dicts = { zh: zh, en: en };
+  var currentLang = 'zh';
+
+  window.switchLang = function(lang) {
+    if (lang === currentLang) return;
+    currentLang = lang;
+    localStorage.setItem('magikid-lang', lang);
+    document.querySelectorAll('.lang-btn').forEach(function(btn){
+      btn.classList.toggle('active', btn.dataset.lang === lang);
+    });
+    var dict = dicts[lang];
+    // innerHTML
+    document.querySelectorAll('[data-i18n]').forEach(function(el){
+      if (dict[el.dataset.i18n] !== undefined) {
+        el.innerHTML = dict[el.dataset.i18n];
+      }
+    });
+    // attributes (alt, title, placeholder)
+    document.querySelectorAll('[data-i18n-alt]').forEach(function(el){
+      var key = el.dataset.i18nAlt;
+      if (dict[key] !== undefined) el.setAttribute('alt', dict[key]);
+    });
+  };
+
+  var saved = localStorage.getItem('magikid-lang');
+  if (saved && saved !== 'zh') switchLang(saved);
+})();
+</script>
 
 </body>
 </html>
