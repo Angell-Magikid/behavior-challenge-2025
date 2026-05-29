@@ -364,6 +364,68 @@
       .curr-tl-labels span { font-size: 9px; }
     }
 
+    /* ─── PROGRAM OUTCOMES ─── */
+    .outcomes-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+    .outcome-card {
+      background: var(--white);
+      border: 1px solid var(--gray200);
+      border-radius: var(--radius-lg);
+      padding: 30px 28px 26px;
+      box-shadow: var(--shadow-sm);
+      display: flex; flex-direction: column; gap: 14px;
+      transition: transform .25s, box-shadow .25s;
+      position: relative; overflow: hidden;
+    }
+    .outcome-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; width: 100%; height: 4px;
+    }
+    .oc-cert::before   { background: linear-gradient(90deg,#3b82f6,#8b5cf6,#06b6d4,#f59e0b,#e63946); }
+    .oc-mentor::before { background: linear-gradient(90deg,#8B1A1A,#003262,#1d3557); }
+    .oc-research::before { background: linear-gradient(90deg,#0ea5e9,#0f766e); }
+    .oc-career::before { background: linear-gradient(90deg,#f59e0b,#e63946); }
+    .outcome-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
+    .oc-icon { font-size: 32px; }
+    .oc-title { font-size: 19px; font-weight: 800; color: var(--gray900); }
+    .oc-desc { font-size: 13px; color: var(--gray500); line-height: 1.75; }
+    .oc-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .oc-list li { font-size: 12.5px; color: var(--gray700); line-height: 1.6; display: flex; align-items: flex-start; gap: 8px; flex-wrap: wrap; }
+    .oc-tag {
+      display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: .5px;
+      padding: 2px 8px; border-radius: 4px; white-space: nowrap; flex-shrink: 0; margin-top: 2px;
+    }
+    .oc-link { color: var(--accent); font-weight: 600; text-decoration: none; }
+    .oc-link:hover { text-decoration: underline; }
+    .oc-note {
+      margin-top: 4px; padding: 10px 14px;
+      background: var(--gray50); border: 1px solid var(--gray200);
+      border-radius: var(--radius); font-size: 12px; color: var(--gray500); font-weight: 500;
+    }
+    /* cert badges in Level Cert card */
+    .cert-levels {
+      display: flex; gap: 6px; flex-wrap: wrap;
+    }
+    .cert-badge {
+      display: inline-flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 6px 10px; border-radius: 8px; color: #fff;
+      font-size: 11px; font-weight: 800; line-height: 1.3; min-width: 72px;
+    }
+    .cert-badge span { font-size: 9.5px; font-weight: 500; opacity: .9; white-space: nowrap; }
+    /* career items */
+    .career-item {
+      display: flex; gap: 14px; align-items: flex-start;
+    }
+    .career-icon { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+    .career-label { font-size: 13.5px; font-weight: 700; color: var(--gray900); margin-bottom: 5px; }
+    .career-text { font-size: 12.5px; color: var(--gray500); line-height: 1.7; }
+    @media(max-width:900px){
+      .outcomes-grid { grid-template-columns: 1fr; }
+    }
+
     /* ─── FOOTER ─── */
     footer {
       background:var(--blue-dark); color:rgba(255,255,255,.45);
@@ -987,9 +1049,102 @@
       </div>
     </div>
 
-    <p style="text-align:center;margin-top:32px;">
+    <!-- ── PROGRAM OUTCOMES ── -->
+    <div style="margin-top:64px;">
+      <div class="section-tag" style="text-align:center;margin:0 auto 10px;">What You Earn</div>
+      <h2 class="section-title" style="text-align:center;font-size:28px;">Program Outcomes &amp; Benefits</h2>
+      <div class="divider" style="margin:16px auto 36px;"></div>
+
+      <!-- 四大成果卡片 -->
+      <div class="outcomes-grid">
+
+        <!-- 证书 -->
+        <div class="outcome-card oc-cert">
+          <div class="oc-icon">🏅</div>
+          <h3 class="oc-title">Level Certificates</h3>
+          <p class="oc-desc">Earn an official MAGIKID certificate upon completing each of the 5 levels. The full-program graduate receives a <strong>Humanoid Robotics Engineer Certificate</strong> co-recognized by program advisors.</p>
+          <div class="cert-levels">
+            <div class="cert-badge" style="background:#3b82f6;">LV 01<span>Robot Hand</span></div>
+            <div class="cert-badge" style="background:#8b5cf6;">LV 02<span>Robot Arm</span></div>
+            <div class="cert-badge" style="background:#06b6d4;">LV 03<span>Motion Sim</span></div>
+            <div class="cert-badge" style="background:#f59e0b;">LV 04<span>Humanoid</span></div>
+            <div class="cert-badge" style="background:#e63946;">LV 05<span>Super-Humanoid</span></div>
+          </div>
+          <div class="oc-note">📜 Each certificate includes project portfolio, lesson completion record, and advisor evaluation</div>
+        </div>
+
+        <!-- 专家辅导 -->
+        <div class="outcome-card oc-mentor">
+          <div class="oc-icon">👨‍🏫</div>
+          <h3 class="oc-title">Expert Mentorship</h3>
+          <p class="oc-desc">Every student is paired with a mentor from our network of researchers and practitioners at world-leading institutions and robotics companies.</p>
+          <ul class="oc-list">
+            <li>
+              <span class="oc-tag" style="background:#8B1A1A;color:#fff;">Stanford</span>
+              SAIL · ILIAD · Stanford Robotics Center · BEHAVIOR Lab
+            </li>
+            <li>
+              <span class="oc-tag" style="background:#003262;color:#fff;">Berkeley</span>
+              RAIL Lab (BAIR) · Berkeley Humanoid Platform · HybridRobotics
+            </li>
+            <li>
+              <span class="oc-tag" style="background:#1d3557;color:#fff;">Industry</span>
+              NVIDIA Research · Unitree Robotics · Figure AI · Physical Intelligence (π)
+            </li>
+          </ul>
+          <div class="oc-note">🔗 Mentor office hours: bi-weekly 1-on-1 sessions (30 min each)</div>
+        </div>
+
+        <!-- 学术研究平台 -->
+        <div class="outcome-card oc-research">
+          <div class="oc-icon">🔬</div>
+          <h3 class="oc-title">Academic Research Access</h3>
+          <p class="oc-desc">Students get access to curated research resources and discussion platforms used by Stanford and Berkeley robotics communities.</p>
+          <ul class="oc-list">
+            <li>
+              <span class="oc-tag" style="background:#8B1A1A;color:#fff;">Stanford</span>
+              <a href="https://ai.stanford.edu/blog/" target="_blank" class="oc-link">SAIL Blog</a> · <a href="https://iliad.stanford.edu/" target="_blank" class="oc-link">ILIAD Group Forum</a> · <a href="https://humanoid-ai.github.io/" target="_blank" class="oc-link">HumanPlus Project</a>
+            </li>
+            <li>
+              <span class="oc-tag" style="background:#003262;color:#fff;">Berkeley</span>
+              <a href="https://rail.eecs.berkeley.edu/" target="_blank" class="oc-link">RAIL Lab</a> · <a href="https://bair.berkeley.edu/blog/" target="_blank" class="oc-link">BAIR Blog</a> · <a href="https://berkeley-humanoid.com/" target="_blank" class="oc-link">Berkeley Humanoid Platform</a>
+            </li>
+            <li>
+              <span class="oc-tag" style="background:#0f766e;color:#fff;">Community</span>
+              IEEE RAS Student Forums · CoRL Student Workshop · Hugging Face Robotics Community
+            </li>
+          </ul>
+          <div class="oc-note">📚 Pre-read list, paper digests, and weekly research recaps provided throughout the program</div>
+        </div>
+
+        <!-- 论文 + 实习 -->
+        <div class="outcome-card oc-career">
+          <div class="oc-icon">🚀</div>
+          <h3 class="oc-title">Publication &amp; Internship</h3>
+          <p class="oc-desc">Top-performing students have direct pathways to research publication and industry experience.</p>
+          <div class="career-item">
+            <div class="career-icon">📄</div>
+            <div>
+              <div class="career-label">Research Publication</div>
+              <div class="career-text">Students with outstanding project outcomes can co-author and submit papers to robotics venues (CoRL, ICRA, IROS, IEEE RA-L) with guidance from their MAGIKID-affiliated mentor. All eligible projects receive formal research review before submission.</div>
+            </div>
+          </div>
+          <div class="career-item" style="margin-top:16px;">
+            <div class="career-icon">🏢</div>
+            <div>
+              <div class="career-label">Robotics Internship Opportunities</div>
+              <div class="career-text">Graduates who complete LV 04–05 are eligible to apply for internal internship positions at our partner robotics companies — including hardware, software, and AI research roles for pre-college students.</div>
+            </div>
+          </div>
+          <div class="oc-note">🌟 Partners include startups and labs actively hiring pre-college robotics talent</div>
+        </div>
+
+      </div><!-- /outcomes-grid -->
+    </div><!-- /outcomes -->
+
+    <p style="text-align:center;margin-top:48px;">
       <a href="https://magikidlab.com" target="_blank"
-        style="display:inline-block;padding:14px 40px;background:var(--blue);color:#fff;border-radius:999px;font-weight:700;font-size:15px;text-decoration:none;box-shadow:var(--shadow-md);transition:transform .2s,box-shadow .2s;"
+        style="display:inline-block;padding:14px 48px;background:var(--blue);color:#fff;border-radius:999px;font-weight:700;font-size:15px;text-decoration:none;box-shadow:var(--shadow-md);transition:transform .2s,box-shadow .2s;"
         onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 10px 32px rgba(29,53,87,.35)'"
         onmouseout="this.style.transform='';this.style.boxShadow='var(--shadow-md)'">
         Apply for the Program →
